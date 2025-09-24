@@ -1,0 +1,88 @@
+<!-- fragments/virtualAssistant.html -->
+<div th:fragment="virtual-assistant-page" xmlns:th="http://www.thymeleaf.org">
+
+    <!-- Hero Section for Virtual Assistant -->
+    <section class="hero-section py-5" style="background-color: #2D5016;">
+        <div class="container text-center text-white">
+            <!-- Title -->
+            <h1 class="display-4 fw-bold mb-3">Farmer's Virtual Assistant</h1>
+            <p class="lead mb-4">How Can I Help You Today?</p>
+
+            <!-- Quick Assistance Categories (Badges) -->
+            <div class="d-flex justify-content-center flex-wrap gap-3">
+                <span class="badge bg-light text-success p-2">
+                    <i class="fas fa-cloud-sun me-1"></i> Weather Updates
+                </span>
+                <span class="badge bg-light text-success p-2">
+                    <i class="fas fa-seedling me-1"></i> Crop Advisory
+                </span>
+                <span class="badge bg-light text-success p-2">
+                    <i class="fas fa-rupee-sign me-1"></i> Govt. Schemes
+                </span>
+                <span class="badge bg-light text-success p-2">
+                    <i class="fas fa-tractor me-1"></i> Farming Tools
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ChatBot Section -->
+    <section class="py-5 bg-light">
+        <div class="container text-center">
+
+            <!-- ChatBot Box -->
+            <div class="chatbot-box mt-4">
+                <div class="chatbot-header text-white p-3 rounded-top" style="background-color: #2D5016;">
+                    <strong>AgriConnect Assistant</strong>
+                </div>
+                <div class="chatbot-body border p-3 bg-white" id="chatbotMessages"
+                     style="height: 300px; overflow-y: auto;">
+                    <div class="text-start mb-2">
+                        <span class="badge bg-success">Hello! 👋 How can I assist you today?</span>
+                    </div>
+                </div>
+                <div class="chatbot-footer d-flex p-2 border  rounded-bottom" style="background-color: #2D5016;">
+                    <input type="text" id="chatbotInput" class="form-control me-2"
+                           placeholder="Type your message...">
+                    <button class="btn btn-success" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ChatBot Script -->
+    <script>
+        function sendMessage() {
+            const input = document.getElementById("chatbotInput");
+            const messages = document.getElementById("chatbotMessages");
+
+            if (input.value.trim() === "") return;
+
+            // User message
+            const userMsg = document.createElement("div");
+            userMsg.className = "text-end mb-2";
+            userMsg.innerHTML = `<span class="badge bg-secondary">${input.value}</span>`;
+            messages.appendChild(userMsg);
+
+            // Bot auto reply (demo)
+            const botMsg = document.createElement("div");
+            botMsg.className = "text-start mb-2";
+            botMsg.innerHTML = `<span class="badge bg-success">Got it 👍 I'll help with "${input.value}" soon!</span>`;
+            messages.appendChild(botMsg);
+
+            messages.scrollTop = messages.scrollHeight;
+            input.value = "";
+        }
+    </script>
+
+    <!-- Chatbot Styles -->
+    <style>
+        .chatbot-box {
+            max-width: 600px;
+            margin: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+
+</div>

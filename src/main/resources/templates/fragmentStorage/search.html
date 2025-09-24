@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<!--title and buy fragment-->
+<div th:fragment="search-facility">
+    <!-- Enhanced Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h1 class="display-5 fw-bold mb-3 " style="">Storage & Processing Facilities</h1>
+                    <p class="lead mb-4">Find nearby cold storage and processing units to preserve and add value to your produce</p>
+                    <div class="d-flex justify-content-center flex-wrap gap-3">
+                        <span class="badge bg-light text-success p-2"><i class="fas fa-temperature-low me-1"></i> Cold Storage</span>
+                        <span class="badge bg-light text-success p-2"><i class="fas fa-industry me-1"></i> Processing Units</span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <h3 class="filter-title"><i class="fas fa-filter me-2"></i>Filter Facilities</h3>
+            <form th:action="@{/storage-processing}" method="get">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="state" class="form-label">State</label>
+                        <select class="form-select" id="state" name="state">
+                            <option value="">Select State</option>
+                            <option th:each="state : ${states}"
+                                    th:value="${state}"
+                                    th:text="${state}"
+                                    th:selected="${selectedState == state}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="city" class="form-label">City</label>
+                        <select class="form-select" id="city" name="city">
+                            <option value="">Select City</option>
+                            <option th:each="city : ${cities}"
+                                    th:value="${city}"
+                                    th:text="${city}"
+                                    th:selected="${selectedCity == city}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="subLocality" class="form-label">Sub-locality</label>
+                        <select class="form-select" id="subLocality" name="subLocality">
+                            <option value="">Select Sub-locality</option>
+                            <option th:each="subLocality : ${subLocalities}"
+                                    th:value="${subLocality}"
+                                    th:text="${subLocality}"
+                                    th:selected="${selectedSubLocality == subLocality}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="type" class="form-label">Facility Type</label>
+                        <select class="form-select" id="type" name="type">
+                            <option value="">Select Type</option>
+                            <option th:each="type : ${types}"
+                                    th:value="${type}"
+                                    th:text="${type}"
+                                    th:selected="${selectedType == type}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-success px-4 text-center">
+                            <i class="fas fa-search me-2"></i>Find Facilities :
+                        </button>
+                        <a th:href="@{/storage-processing}" class="btn btn-outline-secondary ms-2">
+                            <i class="fas fa-redo me-2"></i>Reset Filters
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,404 @@
+<!-- fragments/loanAssistance.html -->
+<div th:fragment="loan-assistance-fragment">
+
+    <!-- Styles specific for Loan Assistance Fragment -->
+    <style>
+        :root {
+            --primary: #2D5016;
+            --primary-light: #4A7C3A;
+            --primary-dark: #1B2D12;
+            --secondary: #FFA62B;
+            --accent: #3A612D;
+            --light-bg: #F9FBF7;
+            --card-bg: #FFFFFF;
+            --text-dark: #2C3E2B;
+            --text-medium: #556B4D;
+            --text-light: #7A8C75;
+            --border-radius: 12px;
+            --shadow-sm: 0 2px 8px rgba(45, 80, 22, 0.08);
+            --shadow-md: 0 4px 16px rgba(45, 80, 22, 0.12);
+            --shadow-lg: 0 8px 24px rgba(45, 80, 22, 0.15);
+            --transition: all 0.3s ease;
+        }
+
+        body, .loan-fragment {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--light-bg);
+        }
+
+        /* Hero Section */
+        .loan-hero {
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            color: #fff;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .loan-hero h1 {
+            font-size: 42px;
+            font-weight: 700;
+        }
+        .loan-hero p {
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        .section-title:after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
+            display: block;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Cards */
+        .loan-card, .document-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid rgba(74, 124, 58, 0.1);
+        }
+        .loan-card:hover, .document-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-light);
+        }
+
+        /* Buttons */
+        .btn-agri-primary {
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            padding: 12px 25px;
+            transition: var(--transition);
+        }
+        .btn-agri-primary:hover {
+            background: linear-gradient(to right, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+        .btn-agri-secondary {
+            background: var(--secondary);
+            color: var(--primary-dark);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            padding: 12px 25px;
+            transition: var(--transition);
+        }
+        .btn-agri-secondary:hover {
+            background: #FF9A02;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Eligibility Status */
+        .eligibility-status {
+            font-size: 18px;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+        .eligible {
+            background-color: rgba(76, 175, 80, 0.15);
+            color: #2e7d32;
+        }
+        .not-eligible {
+            background-color: rgba(244, 67, 54, 0.15);
+            color: #d32f2f;
+        }
+
+        /* Loan Details */
+        .loan-detail {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            margin-bottom: 12px;
+        }
+
+        /* Document Cards */
+        .document-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 24px;
+        }
+
+        /* Application Steps */
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 50px 0;
+        }
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--primary-light);
+            z-index: 1;
+        }
+        .process-step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 auto 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .process-steps {
+                flex-direction: column;
+                gap: 40px;
+            }
+            .process-steps::before { display: none; }
+        }
+        @media (max-width: 768px) {
+            .section-title { font-size: 28px; }
+            .loan-hero h1 { font-size: 32px; }
+        }
+    </style>
+
+    <!-- Hero Section -->
+    <section class="loan-hero">
+        <div class="container">
+            <h1>Agricultural Loan Assistance</h1>
+            <p>Get help finding the right loan for your farming needs. Check eligibility, compare options, and apply for agricultural loans with ease.</p>
+        </div>
+    </section>
+
+    <!-- Loan Eligibility Calculator -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <h2 class="section-title">Loan Eligibility Calculator</h2>
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="loan-card p-4 h-100">
+                        <h3 class="card-title mb-4" style="color: var(--primary);">Check Your Eligibility</h3>
+                        <p class="card-text mb-4" style="color: var(--text-medium);">Fill in your details to see which loans you qualify for and estimate your potential loan amount.</p>
+
+                        <form th:action="@{/loan/check-eligibility}" method="post">
+                            <div class="mb-3">
+                                <label for="loan-purpose" class="form-label fw-medium">Loan Purpose</label>
+                                <select class="form-select" id="loan-purpose" name="purpose">
+                                    <option value="">Select Purpose</option>
+                                    <option value="crop">Crop Cultivation</option>
+                                    <option value="equipment">Farm Equipment</option>
+                                    <option value="irrigation">Irrigation System</option>
+                                    <option value="livestock">Livestock Purchase</option>
+                                    <option value="infra">Infrastructure Development</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="land-size" class="form-label fw-medium">Land Size (acres)</label>
+                                <input type="number" class="form-control" id="land-size" name="landSize" placeholder="Enter land size">
+                            </div>
+                            <div class="mb-3">
+                                <label for="annual-income" class="form-label fw-medium">Annual Income (₹)</label>
+                                <input type="number" class="form-control" id="annual-income" name="annualIncome" placeholder="Enter annual income">
+                            </div>
+                            <div class="mb-4">
+                                <label for="credit-score" class="form-label fw-medium">Credit Score</label>
+                                <input type="number" class="form-control" id="credit-score" name="creditScore" placeholder="Enter credit score (if known)">
+                            </div>
+                            <button type="submit" class="btn-agri-primary w-100">Check Eligibility</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="loan-card p-4 h-100 text-center">
+                        <h3 class="card-title mb-4" style="color: var(--primary);">Your Loan Eligibility</h3>
+                        <div th:if="${eligible != null}" th:classappend="${eligible} ? 'eligible' : 'not-eligible'" class="eligibility-status mb-4">
+                            <i th:class="${eligible} ? 'fas fa-check-circle me-2' : 'fas fa-times-circle me-2'"></i>
+                            <span th:text="${eligible} ? 'You are eligible for agricultural loans' : 'You are not eligible for agricultural loans'"></span>
+                        </div>
+                        <div th:unless="${eligible != null}" class="eligibility-status mb-4" style="background-color: #f8f9fa; color: #6c757d;">
+                            <i class="fas fa-info-circle me-2"></i> Complete the form to check eligibility
+                        </div>
+
+                        <div th:if="${loanAmount != null}" class="loan-detail">
+                            <span class="detail-label">Estimated Loan Amount</span>
+                            <span class="detail-value" th:text="'₹' + ${#numbers.formatInteger(loanAmount, 1, 'COMMA')}"></span>
+                        </div>
+                        <div class="loan-detail">
+                            <span class="detail-label">Interest Rate</span>
+                            <span class="detail-value">4% - 7% p.a.</span>
+                        </div>
+                        <div class="loan-detail">
+                            <span class="detail-label">Repayment Period</span>
+                            <span class="detail-value">Up to 5 years</span>
+                        </div>
+                        <div class="loan-detail">
+                            <span class="detail-label">Recommended Schemes</span>
+                            <span class="detail-value">KCC, PM-KISAN, NABARD</span>
+                        </div>
+
+                        <button class="btn-agri-secondary w-100 mt-4">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loan Comparison -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title">Compare Loan Options</h2>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Features</th>
+                        <th>Kisan Credit Card (KCC)</th>
+                        <th>PM-KISAN Scheme</th>
+                        <th>NABARD Loans</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Interest Rate</td>
+                        <td>4% p.a.</td>
+                        <td>N/A (Subsidy)</td>
+                        <td>7% p.a.</td>
+                    </tr>
+                    <tr>
+                        <td>Max Loan Amount</td>
+                        <td>₹3,00,000</td>
+                        <td>₹6,000/year</td>
+                        <td>₹10,00,000</td>
+                    </tr>
+                    <tr>
+                        <td>Repayment Period</td>
+                        <td>Up to 5 years</td>
+                        <td>N/A</td>
+                        <td>Up to 7 years</td>
+                    </tr>
+                    <tr>
+                        <td>Collateral Required</td>
+                        <td>Not for loans up to ₹1.6L</td>
+                        <td>None</td>
+                        <td>Yes, for larger amounts</td>
+                    </tr>
+                    <tr>
+                        <td>Key Features</td>
+                        <td>
+                            <div class="d-flex align-items-center mb-1"><i class="fas fa-check-circle me-2" style="color: var(--primary-light);"></i> Insurance included</div>
+                            <div class="d-flex align-items-center"><i class="fas fa-check-circle me-2" style="color: var(--primary-light);"></i> Flexible repayment</div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center mb-1"><i class="fas fa-check-circle me-2" style="color: var(--primary-light);"></i> Direct benefit transfer</div>
+                            <div class="d-flex align-items-center"><i class="fas fa-check-circle me-2" style="color: var(--primary-light);"></i> No middlemen</div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center mb-1"><i class="fas fa-check-circle me-2" style="color: var(--primary-light);"></i> Equipment financing</div>
+                            <div class="d-flex align-items-center"><i class="fas fa-check-circle me-2" style="color: var(--primary-light);"></i> Infrastructure development</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button class="btn-agri-primary w-100">Select</button></td>
+                        <td><button class="btn-agri-primary w-100">Select</button></td>
+                        <td><button class="btn-agri-primary w-100">Select</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Document Checklist -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <h2 class="section-title">Required Documents</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="document-card p-4 text-center">
+                        <div class="document-icon"><i class="fas fa-id-card"></i></div>
+                        <h3>Identity Proof</h3>
+                        <p>Aadhaar, PAN, Voter ID, or Driver's License</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="document-card p-4 text-center">
+                        <div class="document-icon"><i class="fas fa-file-contract"></i></div>
+                        <h3>Land Documents</h3>
+                        <p>Proof of land ownership or lease agreement</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="document-card p-4 text-center">
+                        <div class="document-icon"><i class="fas fa-camera"></i></div>
+                        <h3>Photographs</h3>
+                        <p>Passport-size photographs of the applicant</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Process -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title">Application Process</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <p>Fill Eligibility Form</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <p>Submit Documents</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <p>Bank Verification</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <p>Loan Approval & Disbursement</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>

@@ -1,0 +1,167 @@
+<!-- fragments/chatbot.html -->
+<div th:fragment="chatbot-fragment">
+
+    <!-- Chatbot Icon -->
+    <div class="chatbot-icon" onclick="toggleChatbot()">
+        <i class="fas fa-comments"></i>
+    </div>
+
+    <!-- Chatbot Popup -->
+    <div id="chatbotPopup" class="chatbot-popup">
+        <!-- Header -->
+        <div class="chatbot-header">
+            <span><strong>AgriConnect Assistant</strong></span>
+            <span class="chatbot-close" onclick="toggleChatbot()">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+
+        <!-- Messages -->
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="message bot-message">
+                👋 Hello! I'm your farming assistant. How can I help you today?
+            </div>
+        </div>
+
+        <!-- Input -->
+        <div class="chatbot-input">
+            <input type="text" id="userMessage" placeholder="Type your message...">
+            <button onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Styles -->
+    <style>
+        .chatbot-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #4a7c3a, #6fbf73);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 1000;
+        }
+        .chatbot-icon:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .chatbot-popup {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            height: 450px;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            z-index: 1001;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(74, 124, 58, 0.2);
+        }
+        .chatbot-header {
+            background: linear-gradient(to right, #4a7c3a, #6fbf73);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chatbot-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            font-size: 14px;
+        }
+        .message {
+            padding: 10px 14px;
+            border-radius: 16px;
+            max-width: 80%;
+        }
+        .bot-message {
+            background: rgba(74, 124, 58, 0.1);
+            align-self: flex-start;
+        }
+        .user-message {
+            background: #4a7c3a;
+            color: #fff;
+            align-self: flex-end;
+        }
+        .chatbot-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+        .chatbot-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            outline: none;
+            font-size: 14px;
+        }
+        .chatbot-input button {
+            background: #4a7c3a;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .chatbot-input button:hover {
+            background: #356026;
+            transform: rotate(15deg);
+        }
+    </style>
+
+    <!-- Script -->
+    <script>
+        function toggleChatbot() {
+            const popup = document.getElementById("chatbotPopup");
+            popup.style.display = (popup.style.display === "flex") ? "none" : "flex";
+        }
+
+        function sendMessage() {
+            const input = document.getElementById("userMessage");
+            const msg = input.value.trim();
+            if (msg !== "") {
+                const chatBox = document.getElementById("chatMessages");
+
+                // User message
+                let userMsg = document.createElement("div");
+                userMsg.className = "message user-message";
+                userMsg.textContent = msg;
+                chatBox.appendChild(userMsg);
+
+                input.value = "";
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                // Simulated bot reply
+                setTimeout(() => {
+                    let botMsg = document.createElement("div");
+                    botMsg.className = "message bot-message";
+                    botMsg.textContent = "You said: " + msg;
+                    chatBox.appendChild(botMsg);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }, 500);
+            }
+        }
+    </script>
+</div>

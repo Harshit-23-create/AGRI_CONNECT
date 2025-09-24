@@ -1,0 +1,114 @@
+[
+  {
+    "name": "Andhra Pradesh",
+    "cities": ["Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Kurnool", "Tirupati"]
+  },
+  {
+    "name": "Arunachal Pradesh",
+    "cities": ["Itanagar", "Tawang", "Pasighat", "Ziro", "Bomdila", "Roing"]
+  },
+  {
+    "name": "Assam",
+    "cities": ["Guwahati", "Silchar", "Dibrugarh", "Jorhat", "Tezpur", "Nagaon"]
+  },
+  {
+    "name": "Bihar",
+    "cities": ["Patna", "Gaya", "Bhagalpur", "Muzaffarpur", "Darbhanga", "Purnea"]
+  },
+  {
+    "name": "Chhattisgarh",
+    "cities": ["Raipur", "Bhilai", "Bilaspur", "Korba", "Durg", "Jagdalpur"]
+  },
+  {
+    "name": "Goa",
+    "cities": ["Panaji", "Margao", "Vasco da Gama", "Mapusa", "Ponda", "Bicholim"]
+  },
+  {
+    "name": "Gujarat",
+    "cities": ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Bhavnagar", "Jamnagar"]
+  },
+  {
+    "name": "Haryana",
+    "cities": ["Faridabad", "Gurgaon", "Panipat", "Ambala", "Hisar", "Karnal"]
+  },
+  {
+    "name": "Himachal Pradesh",
+    "cities": ["Shimla", "Manali", "Dharamshala", "Mandi", "Solan", "Kullu"]
+  },
+  {
+    "name": "Jharkhand",
+    "cities": ["Ranchi", "Jamshedpur", "Dhanbad", "Bokaro", "Hazaribagh", "Deoghar"]
+  },
+  {
+    "name": "Karnataka",
+    "cities": ["Bengaluru", "Mysuru", "Mangalore", "Hubli", "Belagavi", "Davangere"]
+  },
+  {
+    "name": "Kerala",
+    "cities": ["Thiruvananthapuram", "Kochi", "Kozhikode", "Thrissur", "Alappuzha", "Kannur"]
+  },
+  {
+    "name": "Madhya Pradesh",
+    "cities": ["Bhopal", "Indore", "Gwalior", "Jabalpur", "Ujjain", "Sagar"]
+  },
+  {
+    "name": "Maharashtra",
+    "cities": ["Mumbai", "Pune", "Nagpur", "Nashik", "Aurangabad", "Solapur"]
+  },
+  {
+    "name": "Manipur",
+    "cities": ["Imphal", "Thoubal", "Bishnupur", "Ukhrul", "Senapati", "Churachandpur"]
+  },
+  {
+    "name": "Meghalaya",
+    "cities": ["Shillong", "Tura", "Jowai", "Nongpoh", "Baghmara", "Williamnagar"]
+  },
+  {
+    "name": "Mizoram",
+    "cities": ["Aizawl", "Lunglei", "Champhai", "Serchhip", "Kolasib", "Saiha"]
+  },
+  {
+    "name": "Nagaland",
+    "cities": ["Kohima", "Dimapur", "Mokokchung", "Tuensang", "Mon", "Phek"]
+  },
+  {
+    "name": "Odisha",
+    "cities": ["Bhubaneswar", "Cuttack", "Rourkela", "Puri", "Sambalpur", "Balasore"]
+  },
+  {
+    "name": "Punjab",
+    "cities": ["Amritsar", "Ludhiana", "Jalandhar", "Patiala", "Bathinda", "Mohali"]
+  },
+  {
+    "name": "Rajasthan",
+    "cities": ["Jaipur", "Jodhpur", "Udaipur", "Kota", "Bikaner", "Ajmer"]
+  },
+  {
+    "name": "Sikkim",
+    "cities": ["Gangtok", "Namchi", "Mangan", "Gyalshing", "Singtam", "Rangpo"]
+  },
+  {
+    "name": "Tamil Nadu",
+    "cities": ["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem", "Tirunelveli"]
+  },
+  {
+    "name": "Telangana",
+    "cities": ["Hyderabad", "Warangal", "Nizamabad", "Khammam", "Karimnagar", "Mahbubnagar"]
+  },
+  {
+    "name": "Tripura",
+    "cities": ["Agartala", "Udaipur", "Dharmanagar", "Kailashahar", "Belonia", "Ambassa"]
+  },
+  {
+    "name": "Uttar Pradesh",
+    "cities": ["Lucknow", "Kanpur", "Varanasi", "Agra", "Prayagraj", "Ghaziabad","Unnao"]
+  },
+  {
+    "name": "Uttarakhand",
+    "cities": ["Dehradun", "Haridwar", "Rishikesh", "Nainital", "Haldwani", "Roorkee"]
+  },
+  {
+    "name": "West Bengal",
+    "cities": ["Kolkata", "Siliguri", "Asansol", "Durgapur", "Howrah", "Kharagpur"]
+  }
+]

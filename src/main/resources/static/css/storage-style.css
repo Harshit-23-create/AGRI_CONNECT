@@ -1,0 +1,173 @@
+:root {
+            --primary: #2D5016;
+            --primary-light: #4A7C3A;
+            --primary-dark: #1B2D12;
+            --secondary: #FFA62B;
+            --accent: #3A612D;
+            --light-bg: #F9FBF7;
+            --card-bg: #FFFFFF;
+            --text-dark: #2C3E2B;
+            --text-medium: #556B4D;
+            --text-light: #7A8C75;
+            --border-radius: 12px;
+            --shadow-sm: 0 2px 8px rgba(45, 80, 22, 0.08);
+            --shadow-md: 0 4px 16px rgba(45, 80, 22, 0.12);
+            --shadow-lg: 0 8px 24px rgba(45, 80, 22, 0.15);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-bottom: 2rem;
+        }
+
+        /* Enhanced Hero Section */
+        .hero-section {
+            background-color: #2D5016;
+            background-size: cover;
+            background-position: center;
+            padding: 80px 0;
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .filter-title {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Enhanced Facility Cards with Thin Border and Shadow */
+        .facility-card {
+            border: 1px solid #e0e0e0; /* Thin border */
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Soft shadow */
+            transition: all 0.3s ease;
+            height: 100%;
+            margin-bottom: 25px;
+            overflow: hidden;
+            background-color: white;
+        }
+
+        .facility-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); /* Enhanced shadow on hover */
+            border-color: var(--primary-light);
+        }
+
+        .facility-image {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .facility-type-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        .space-availability {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        .facility-details {
+            padding: 20px;
+        }
+
+        .facility-name {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .facility-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .feature-badge {
+            background-color: var(--light-bg);
+            color: var(--text-medium);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid #e9ecef;
+        }
+
+        .contact-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            transition: var(--transition);
+            margin-right: 10px;
+        }
+
+        .contact-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .booking-btn {
+            background-color: var(--secondary);
+            color: var(--primary-dark);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .booking-btn:hover {
+            background-color: #e59400;
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #e9ecef;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .filter-section .row > div {
+                margin-bottom: 15px;
+            }
+
+            .btn-group-responsive {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn-group-responsive .btn {
+                width: 100%;
+            }
+        }

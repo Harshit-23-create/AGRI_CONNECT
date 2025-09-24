@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labour & Tools Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .c1{
+            background-color: #2D5016;
+        }
+        .card {
+            transition: transform 0.3s;
+            height: 100%;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .skill-badge {
+            margin: 2px;
+        }
+        .filter-section {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        .results-container {
+            min-height: 500px;
+        }
+        .component-image {
+            height: 180px;
+            object-fit: cover;
+        }
+        .wage-label {
+            font-weight: 600;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+<!-- Thymeleaf Fragment for Labour & Tools -->
+<div th:fragment="labour-tools-fragments" class="container my-5">
+    <section style="background-color: #2D5016;" class="row justify-content-center">
+        <h1 class="c1 text-center mb-4">Find Labour & Farming Tools</h1>
+        <p class="c1 text-center text-muted mb-4">Search for available labour or farming tools in your area</p>
+    </section>
+
+    <!-- 📝 Process Guide -->
+    <div class="alert alert-info shadow-sm mb-5">
+        <h5 class="mb-3"><i class="bi bi-lightbulb"></i> How to Use</h5>
+        <ol class="mb-0">
+            <li>Select <strong>Location</strong>, <strong>Category</strong>, and <strong>Type</strong> from the filter section.</li>
+            <li>Click <span class="badge bg-primary"><i class="bi bi-search"></i> Apply Filters</span> to see matching results.</li>
+            <li>Use <span class="badge bg-secondary"><i class="bi bi-arrow-clockwise"></i> Reset</span> to clear all filters.</li>
+            <li>Choose <span class="text-success fw-bold">Hire Now</span> for labour or <span class="text-warning fw-bold">Rent Now</span> for tools.</li>
+        </ol>
+    </div>
+
+    <!-- Filter Options Table -->
+    <div class="filter-section">
+        <h4 class="mb-4"><i class="bi bi-funnel"></i> Filter Options</h4>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label for="location" class="form-label">Location</label>
+                <select class="form-select" id="location">
+                    <option selected value="">All Locations</option>
+                    <option value="north">North Region</option>
+                    <option value="south">South Region</option>
+                    <option value="east">East Region</option>
+                    <option value="west">West Region</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="category" class="form-label">Category</label>
+                <select class="form-select" id="category">
+                    <option selected value="">All Categories</option>
+                    <option value="labour">Labour</option>
+                    <option value="tools">Farming Tools</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="type" class="form-label">Skill/Equipment Type</label>
+                <select class="form-select" id="type">
+                    <option selected value="">All Types</option>
+                    <option value="skilled">Skilled Worker</option>
+                    <option value="unskilled">Unskilled Worker</option>
+                    <option value="tractor">Tractor</option>
+                    <option value="plough">Plough</option>
+                    <option value="harvester">Harvester</option>
+                </select>
+            </div>
+            <div class="col-12 text-end mt-4">
+                <button type="button" class="btn btn-outline-secondary me-2" id="resetFilters">
+                    <i class="bi bi-arrow-clockwise"></i> Reset
+                </button>
+                <button type="button" class="btn btn-primary" id="applyFilters">
+                    <i class="bi bi-search"></i> Apply Filters
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Section -->
+    <h4 class="mb-4"><i class="bi bi-search"></i> Search Results : </h4>
+
+    <!-- Labour Section -->
+    <div class="mb-5">
+        <h5 class="bg-success text-white p-2 rounded mb-3"><i class="bi bi-people"></i> Available Labour</h5>
+        <div class="row g-4 results-container" id="resultsContainer">
+            <!-- Labour Components -->
+            <div class="col-md-6 col-lg-4 labour skilled north">
+                <!-- your first labour card -->
+                <div class="card">
+                    <img src="/images/labour4.jpg" class="card-img-top component-image" alt="Farm worker">
+                    <div class="card-body">
+                        <h5 class="card-title">John Smith</h5>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted"><i class="bi bi-geo-alt"></i> North Region</span>
+                            <span class="wage-label">$15/hr</span>
+                        </div>
+                        <p class="card-text"><strong>Experience:</strong> 5 years</p>
+                        <div class="mb-3">
+                            <strong>Skills:</strong>
+                            <div class="mt-1">
+                                <span class="badge bg-primary skill-badge">Ploughing</span>
+                                <span class="badge bg-primary skill-badge">Harvesting</span>
+                                <span class="badge bg-primary skill-badge">Irrigation</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-success w-100"><i class="bi bi-person-check"></i> Hire Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- (rest of your Labour cards remain exactly the same) -->
+
+        </div>
+    </div>
+
+    <!-- Tools Section -->
+    <div class="mb-5">
+        <h5 class="bg-warning text-dark p-2 rounded mb-3"><i class="bi bi-tools"></i> Available Farming Tools</h5>
+        <div class="row g-4 results-container">
+            <!-- Tools Components -->
+            <div class="col-md-6 col-lg-4 tools tractor west">
+                <!-- your first tool card -->
+                <div class="card">
+                    <img src="/images/tractor.jpg" class="card-img-top component-image" alt="Tractor">
+                    <div class="card-body">
+                        <h5 class="card-title">John Deere Tractor</h5>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted"><i class="bi bi-geo-alt"></i> West Region</span>
+                            <span class="wage-label">$120/day</span>
+                        </div>
+                        <p class="card-text"><strong>Type:</strong> Medium-duty tractor</p>
+                        <div class="mb-3">
+                            <strong>Features:</strong>
+                            <div class="mt-1">
+                                <span class="badge bg-info skill-badge">4WD</span>
+                                <span class="badge bg-info skill-badge">Air Conditioned</span>
+                                <span class="badge bg-info skill-badge">Front Loader</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-warning w-100"><i class="bi bi-tools"></i> Rent Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- (rest of your Tools cards remain exactly the same) -->
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const applyFilters = document.getElementById('applyFilters');
+        const resetFilters = document.getElementById('resetFilters');
+        const categorySelect = document.getElementById('category');
+        const locationSelect = document.getElementById('location');
+        const typeSelect = document.getElementById('type');
+        const allItems = document.querySelectorAll('.col-md-6');
+
+        // Apply filters when button is clicked
+        applyFilters.addEventListener('click', function() {
+            const categoryValue = categorySelect.value;
+            const locationValue = locationSelect.value;
+            const typeValue = typeSelect.value;
+
+            allItems.forEach(item => {
+                let showItem = true;
+
+                // Check category filter
+                if (categoryValue && !item.classList.contains(categoryValue)) {
+                    showItem = false;
+                }
+
+                // Check location filter
+                if (locationValue && !item.classList.contains(locationValue)) {
+                    showItem = false;
+                }
+
+                // Check type filter
+                if (typeValue && !item.classList.contains(typeValue)) {
+                    showItem = false;
+                }
+
+                // Show or hide the item based on filters
+                if (showItem) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Reset all filters
+        resetFilters.addEventListener('click', function() {
+            categorySelect.value = '';
+            locationSelect.value = '';
+            typeSelect.value = '';
+
+            allItems.forEach(item => {
+                item.style.display = 'block';
+            });
+        });
+    });
+</script>
+</body>
+</html>

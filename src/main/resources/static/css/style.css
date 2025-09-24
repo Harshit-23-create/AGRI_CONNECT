@@ -1,0 +1,177 @@
+.language-option {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #ffffff; /* White text */
+    background-color: transparent; /* Clean look */
+    border-radius: 20px; /* Pill shape */
+    padding: 4px 12px;
+    font-weight: 500;
+}
+
+/* Hover effect */
+.language-option:hover {
+    background-color: #2D5016;
+    color: #fbc02d !important; /* Yellow text */
+    transform: translateY(-2px);
+}
+
+/* Active selected language */
+.language-option.active {
+    background-color: #2D5016;
+    color: #fbc02d !important;
+    font-weight: bold;
+}
+body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+    .hero {
+            background-color:#2D5016;
+            background-size: cover;
+            background-position: center;
+            color: white;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            height: 100%;
+            border: none;
+        }
+
+        /* Create the border overlay using ::after */
+        .card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #4CAF50; /* green border */
+            border-radius: 12px;
+            opacity: 0; /* hidden by default */
+            pointer-events: none; /* allow clicks through */
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: scale(0.95);
+        }
+
+        /* Hover state */
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+
+        .card:hover::after {
+            opacity: 1;
+            transform: scale(1); /* border appears fully */
+        }
+
+        /* Speaker Button Styling */
+        .speaker-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            z-index: 10;
+        }
+
+        /* Change button color on hover of card */
+        .dashboard-card:hover .speaker-btn {
+            background-color: #81C784; /* greenish on hover */
+            border-color: #81C784;
+        }
+
+        .card-title {
+            font-weight: 600;
+            color: #2E7D32;
+            margin-bottom: 1rem;
+        }
+
+        .card-text {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .dashboard-section {
+            padding: 2rem 0;
+        }
+
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+            color: #2E7D32;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #2E7D32;
+        }
+
+        .icon-container {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            background-color: rgba(76, 175, 80, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-card:hover .icon-container {
+            background-color: rgba(76, 175, 80, 0.2);
+            transform: scale(1.1);
+        }
+
+        .icon-container i {
+            font-size: 2.5rem;
+        }
+
+        .text-primary { color: #1976D2 !important; }
+        .text-success { color: #2E7D32 !important; }
+        .text-warning { color: #F57C00 !important; }
+        .text-danger { color: #D32F2F !important; }
+        .text-info { color: #0288D1 !important; }
+        .text-secondary { color: #455A64 !important; }
+
+
+.calculator-card {
+       background: linear-gradient(135deg, #f9fbe7 0%, #e8f5e9 100%);
+       border-radius: 12px;
+       border: 1px solid rgba(0, 0, 0, 0.175);
+       padding: 25px;
+       height: 100%;
+       transition: all 0.3s ease;
+       margin-right:20px;
+       margin-left:20px;
+}
+
+.calculator-card:hover {
+       transform: translateY(-5px);
+       border:1px solid rgb(74,124,58);
+       box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2D5016;
+            --primary-light: #4CAF50;
+            --hover-green: #81c784;
+            --dark-green: #1b3a0f;
+            --light-bg: #f8fff8;
+            --card-bg: #fff;
+            --border-radius: 12px;
+            --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.2);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+        }
+
+        .section-title {
+            color: var(--dark-green);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-light), var(--primary));
+            bottom: -10px;
+            left: 0;
+            border-radius: 2px;
+        }
+
+        /* Corrected Loan Card */
+        .loan-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            border: 1px solid #e0e0e0;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .loan-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-light), var(--primary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .loan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-light);
+        }
+
+        .loan-card:hover:before {
+            transform: scaleX(1);
+        }
+
+        .loan-card:hover .loan-icon {
+            transform: scale(1.1) rotate(5deg);
+            color: var(--primary-light);
+        }
+
+        .loan-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: #e0e0e0;
+            transition: var(--transition);
+        }
+
+        .loan-badge {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: white;
+            border: none;
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 20px;
+            transition: var(--transition);
+        }
+
+        .loan-card:hover .loan-badge {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .loan-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #e0e0e0;
+            transition: var(--transition);
+        }
+
+        .loan-card:hover .loan-detail {
+            border-bottom-color: var(--hover-green);
+        }
+
+        .loan-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            transition: var(--transition);
+        }
+
+        .loan-card:hover .loan-feature {
+            transform: translateX(5px);
+        }
+
+        .loan-feature i {
+            color: var(--primary-light);
+            transition: var(--transition);
+        }
+
+        .loan-card:hover .loan-feature i {
+            color: var(--primary);
+            transform: scale(1.2);
+        }
+
+        /* Enhanced Buttons */
+        .btn-custom-success {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-custom-success:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+
+        .btn-custom-success:hover:before {
+            left: 0;
+        }
+
+        .btn-custom-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-green-yellow {
+            background: linear-gradient(135deg, #4CAF50, #FFD54F);
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-green-yellow:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #FFD54F, #4CAF50);
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+
+        .btn-green-yellow:hover:before {
+            left: 0;
+        }
+
+        .btn-green-yellow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Card background variations */
+        .loan-card:nth-child(2n) {
+            background: linear-gradient(135deg, #f8fff8 0%, #f0f8f0 100%);
+        }
+
+        .loan-card:nth-child(3n) {
+            background: linear-gradient(135deg, #f8fff8 0%, #f5f9f5 100%);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .loan-card {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div th:fragment="loan-section">
+    <section class="py-5 ">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">Agricultural Loans</h2>
+            <div class="row g-4">
+
+                <!-- Loan 1 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="loan-card">
+                        <i class="loan-icon fas fa-seedling"></i>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="fw-bold fs-5 text-success">NABARD Kisan Credit</div>
+                            <span class="loan-badge">Crop Loan</span>
+                        </div>
+                        <div class="mb-4">
+                            <div class="loan-detail">
+                                <span class="text-medium">Interest Rate</span>
+                                <span class="fw-semibold text-success">4% per annum</span>
+                            </div>
+                            <div class="loan-detail">
+                                <span class="text-medium">Max Amount</span>
+                                <span class="fw-semibold text-success">₹3,00,000</span>
+                            </div>
+                            <div class="loan-detail">
+                                <span class="text-medium">Repayment Period</span>
+                                <span class="fw-semibold text-success">Up to 5 years</span>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="loan-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="text-medium">No collateral required for loans up to ₹1,60,000</span>
+                            </div>
+                            <div class="loan-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="text-medium">Insurance coverage included</span>
+                            </div>
+                            <div class="loan-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="text-medium">Interest subvention available</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-custom-success mt-auto">Apply Now</button>
+                    </div>
+                </div>
+
+                <!-- Loan 2 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="loan-card">
+                        <i class="loan-icon fas fa-hand-holding-usd"></i>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="fw-bold fs-5 text-success">PM-KISAN Scheme</div>
+                            <span class="loan-badge">Subsidy</span>
+                        </div>
+                        <div class="mb-4">
+                            <div class="loan-detail">
+                                <span class="text-medium">Support Amount</span>
+                                <span class="fw-semibold text-success">₹6,000 per year</span>
+                            </div>
+                            <div class="loan-detail">
+                                <span class="text-medium">Installments</span>
+                                <span class="fw-semibold text-success">3 equal payments</span>
+                            </div>
+                            <div class="loan-detail">
+                                <span class="text-medium">Eligibility</span>
+                                <span class="fw-semibold text-success">All landholding farmers</span>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="loan-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="text-medium">Direct benefit transfer to bank account</span>
+                            </div>
+                            <div class="loan-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="text-medium">No middlemen involved</span>
+                            </div>
+                            <div class="loan-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="text-medium">Simple online application process</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-custom-success mt-auto">Check Eligibility</button>
+                    </div>
+                </div>
+
+                <!-- Loan 3 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="loan-card">
+                        <i class="loan-icon fas fa-tractor"></i>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="fw-bold fs-5 text-success">Agri-Equipment Loan</div>
+                            <span class="loan-badge">Equipment Financing</span>
+                        </div>
+                        <div class="mb-4">
+                            <div class="loan-detail">
+                                <span class="text-medium">Interest Rate</span>
+                                <span class="fw-semibold text-success">7.5% per annum</span>
+                            </div>
+                            <div class="loan-detail">
+                                <span class="text-medium">Max Amount</span>
+                                <span class="fw-semibold text-success">₹10,00,000</span>
+                            </div>
+                            <div class="loan-detail">
+                                <span class="text-medium">Repayment Period</span>
+                                <span class="fw-semibold text-success">Up to 7 years</span>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="loan-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="text-medium">Finance for tractors, harvesters, and implements</span>
+                            </div>
+                            <div class="loan-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="text-medium">Flexible repayment options</span>
+                            </div>
+                            <div class="loan-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="text-medium">Quick approval process</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-custom-success mt-auto">Explore Options</button>
+                    </div>
+                </div>
+
+                <!-- Loan 4 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="loan-card">
+                        <i class="loan-icon fas fa-water"></i>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="fw-bold fs-5 text-success">Irrigation Loan</div>
+                            <span class="loan-badge">Infrastructure</span>
+                        </div>
+                        <div class="mb-4">
+                            <div class="loan-detail">
+                                <span class="text-medium">Interest Rate</span>
+                                <span class="fw-semibold text-success">5% per annum</span>
+                            </div>
+                            <div class="loan-detail">
+                                <span class="text-medium">Max Amount</span>
+                                <span class="fw-semibold text-success">₹5,00,000</span>
+                            </div>
+                            <div class="loan-detail">
+                                <span class="text-medium">Repayment Period</span>
+                                <span class="fw-semibold text-success">Up to 4 years</span>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="loan-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="text-medium">Subsidy available for drip irrigation</span>
+                            </div>
+                            <div class="loan-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="text-medium">Technical guidance provided</span>
+                            </div>
+                            <div class="loan-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="text-medium">Water conservation focus</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-green-yellow mt-auto">Learn More</button>
+                    </div>
+                </div>
+
+                <!-- Loan 5 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="loan-card">
+                        <i class="loan-icon fas fa-home"></i>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="fw-bold fs-5 text-success">Rural Housing Loan</div>
+                            <span class="loan-badge">Housing</span>
+                        </div>
+                        <div class="mb-4">
+                            <div class="loan-detail">
+                                <span class="text-medium">Interest Rate</span>
+                                <span class="fw-semibold text-success">6.5% per annum</span>
+                            </div>
+                            <div class="loan-detail">
+                                <span class="text-medium">Max Amount</span>
+                                <span class="fw-semibold text-success">₹15,00,000</span>
+                            </div>
+                            <div class="loan-detail">
+                                <span class="text-medium">Repayment Period</span>
+                                <span class="fw-semibold text-success">Up to 20 years</span>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="loan-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="text-medium">PMAY subsidy applicable</span>
+                            </div>
+                            <div class="loan-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="text-medium">Flexible EMI options</span>
+                            </div>
+                            <div class="loan-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="text-medium">Construction guidance provided</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-custom-success mt-auto">Apply Now</button>
+                    </div>
+                </div>
+
+                <!-- Loan 6 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="loan-card">
+                        <i class="loan-icon fas fa-paw"></i>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="fw-bold fs-5 text-success">Animal Husbandry Loan</div>
+                            <span class="loan-badge">Livestock</span>
+                        </div>
+                        <div class="mb-4">
+                            <div class="loan-detail">
+                                <span class="text-medium">Interest Rate</span>
+                                <span class="fw-semibold text-success">4.5% per annum</span>
+                            </div>
+                            <div class="loan-detail">
+                                <span class="text-medium">Max Amount</span>
+                                <span class="fw-semibold text-success">₹2,00,000 per animal</span>
+                            </div>
+                            <div class="loan-detail">
+                                <span class="text-medium">Repayment Period</span>
+                                <span class="fw-semibold text-success">Up to 5 years</span>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="loan-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="text-medium">Veterinary support included</span>
+                            </div>
+                            <div class="loan-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="text-medium">Insurance for livestock</span>
+                            </div>
+                            <div class="loan-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="text-medium">Training programs available</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-green-yellow mt-auto">Get Details</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

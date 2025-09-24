@@ -1,0 +1,92 @@
+/* title*/
+.hero{
+    background-color: #2D5016;
+}
+
+/* Marketplace Section */
+.display-5{
+    color: #FFFFFF;
+}
+.lead{
+    color: #FFFFFF;
+}
+        .marketplace-section {
+            padding: 50px 0;
+            background-color: #fff;
+        }
+
+        .marketplace-filters {
+            background-color: #F9FBF7;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .product-card {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .product-image {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        /* Sell Form Section */
+        .sell-form-section {
+            padding: 50px 0;
+            background-color: #E9F5E3;
+        }
+
+        .form-card {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 900px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .videos-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .leaf-nav-item {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .videos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .language-option {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
