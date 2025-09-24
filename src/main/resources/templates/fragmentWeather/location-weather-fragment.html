@@ -107,7 +107,7 @@
                             <!-- Hourly Forecast -->
                             <div class="mb-3">
                                 <h6 class="text-primary text-center">Today's Hourly Forecast</h6>
-                                <div class="hourly-forecast" id="hourlyContainer"></div>
+                                <div class="row text-center" id="hourlyContainer"></div>
                             </div>
 
                             <!-- 5-Day Forecast -->
@@ -204,7 +204,7 @@
                     data.forecast.list.slice(0, 8).forEach(entry => {
                         const date = new Date(entry.dt * 1000);
                         const card = document.createElement('div');
-                        card.className = 'hourly-card';
+                        card.className = 'col forecast-card card shadow-sm m-1 p-2';
                         card.innerHTML = `
                             <h6>${date.getHours()}:00</h6>
                             <p>🌡️ ${entry.main.temp.toFixed(1)}°C</p>

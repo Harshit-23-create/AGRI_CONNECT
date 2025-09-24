@@ -1,123 +1,405 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .section-title {
+            color: #2c5530;
+            text-align: center;
+            margin: 30px 0;
+            font-weight: 700;
+        }
+        .calculator-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+        .calculator-card:hover {
+            transform: translateY(-5px);
+        }
+        .calculator-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .calculator-header i {
+            margin-right: 10px;
+        }
+        .calculator-card h4 {
+            color: #2c5530;
+            margin-bottom: 10px;
+        }
+        .calculator-card p {
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #495057;
+        }
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+            font-weight: 600;
+            padding: 10px;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+        .result-box {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            border-left: 4px solid #28a745;
+            display: none;
+        }
+        .result-title {
+            font-weight: 600;
+            color: #2c5530;
+            margin-bottom: 10px;
+        }
+        .result-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #495057;
+        }
+        .input-group-text {
+            background-color: #e9ecef;
+            color: #495057;
+        }
+    </style>
+</head>
 <body>
-<section th:fragment="knowledgehub-calculators">
-  <h2 class="section-title">Farming Calculators</h2>
-  <div class="row">
-    <!-- Fertilizer Calculator -->
-    <div class="col-lg-4 col-md-6 mb-4">
-      <div class="calculator-card">
-        <div class="text-center mb-4">
-          <i class="fas fa-flask fa-3x text-success mb-3"></i>
-          <h4>Fertilizer Calculator</h4>
-          <p>Calculate the optimal amount of fertilizer for your crops</p>
-        </div>
-        <form th:action="@{/knowledgehub/calculate-fertilizer}" method="post">
-          <div class="mb-3">
-            <label for="cropType" class="form-label">Crop Type</label>
-            <select class="form-select" id="cropType" name="cropType" required>
-              <option value="">Select crop type</option>
-              <option value="wheat">Wheat</option>
-              <option value="rice">Rice</option>
-              <option value="corn">Corn</option>
-              <option value="cotton">Cotton</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="area" class="form-label">Area (acres)</label>
-            <input type="number" class="form-control" id="area" name="area" step="0.1" min="0.1" required>
-          </div>
-          <div class="mb-3">
-            <label for="soilType" class="form-label">Soil Type</label>
-            <select class="form-select" id="soilType" name="soilType" required>
-              <option value="">Select soil type</option>
-              <option value="sandy">Sandy</option>
-              <option value="loamy">Loamy</option>
-              <option value="clay">Clay</option>
-              <option value="silt">Silt</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-success w-100">Calculate</button>
-        </form>
-        <div class="mt-3 p-3 bg-light rounded" th:if="${fertilizerResult}">
-          <h6>Recommended Fertilizer:</h6>
-          <p th:text="${fertilizerResult}"></p>
-        </div>
-      </div>
-    </div>
+<div th:fragment="knowledgehub-calculators">
+    <section class="container py-5">
+        <h2 class="section-title">Farming Calculators</h2>
+        <div class="row">
+            <!-- Fertilizer Calculator -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="calculator-card">
+                    <div class="calculator-header">
+                        <i class="fas fa-flask fa-2x text-success"></i>
+                        <h4>Fertilizer Calculator</h4>
+                    </div>
+                    <p>Calculate the optimal amount of fertilizer for your crops</p>
+                    <form id="fertilizerForm">
+                        <div class="mb-3">
+                            <label for="fertCropType" class="form-label">Crop Type</label>
+                            <select class="form-select" id="fertCropType" required>
+                                <option value="">Select crop type</option>
+                                <option value="wheat">Wheat</option>
+                                <option value="rice">Rice</option>
+                                <option value="maize">Maize</option>
+                                <option value="cotton">Cotton</option>
+                                <option value="pulses">Pulses</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fertArea" class="form-label">Area (acres)</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="fertArea" step="0.1" min="0.1" required>
+                                <span class="input-group-text">acres</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fertSoilType" class="form-label">Soil Type</label>
+                            <select class="form-select" id="fertSoilType" required>
+                                <option value="">Select soil type</option>
+                                <option value="sandy">Sandy</option>
+                                <option value="loamy">Loamy</option>
+                                <option value="clay">Clay</option>
+                                <option value="silt">Silt</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Calculate</button>
+                    </form>
+                    <div id="fertilizerResult" class="result-box">
+                        <div class="result-title">Recommended Fertilizer:</div>
+                        <div id="fertResultContent"></div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Seed Rate Calculator -->
-    <div class="col-lg-4 col-md-6 mb-4">
-      <div class="calculator-card">
-        <div class="text-center mb-4">
-          <i class="fas fa-seedling fa-3x text-success mb-3"></i>
-          <h4>Seed Rate Calculator</h4>
-          <p>Know the optimal seed quantity for your planting area</p>
-        </div>
-        <form th:action="@{/knowledgehub/calculate-seed}" method="post">
-          <div class="mb-3">
-            <label for="seedCropType" class="form-label">Crop Type</label>
-            <select class="form-select" id="seedCropType" name="cropType" required>
-              <option value="">Select crop type</option>
-              <option value="wheat">Wheat</option>
-              <option value="rice">Rice</option>
-              <option value="corn">Corn</option>
-              <option value="cotton">Cotton</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="seedArea" class="form-label">Area (acres)</label>
-            <input type="number" class="form-control" id="seedArea" name="area" step="0.1" min="0.1" required>
-          </div>
-          <div class="mb-3">
-            <label for="spacing" class="form-label">Row Spacing (cm)</label>
-            <input type="number" class="form-control" id="spacing" name="spacing" min="10" required>
-          </div>
-          <button type="submit" class="btn btn-success w-100">Calculate</button>
-        </form>
-        <div class="mt-3 p-3 bg-light rounded" th:if="${seedResult}">
-          <h6>Recommended Seed Quantity:</h6>
-          <p th:text="${seedResult}"></p>
-        </div>
-      </div>
-    </div>
+            <!-- Seed Calculator -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="calculator-card">
+                    <div class="calculator-header">
+                        <i class="fas fa-seedling fa-2x text-success"></i>
+                        <h4>Seed Rate Calculator</h4>
+                    </div>
+                    <p>Know the optimal seed quantity for your planting area</p>
+                    <form id="seedForm">
+                        <div class="mb-3">
+                            <label for="seedCropType" class="form-label">Crop Type</label>
+                            <select class="form-select" id="seedCropType" required>
+                                <option value="">Select crop type</option>
+                                <option value="wheat">Wheat</option>
+                                <option value="rice">Rice</option>
+                                <option value="maize">Maize</option>
+                                <option value="cotton">Cotton</option>
+                                <option value="pulses">Pulses</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="seedArea" class="form-label">Area (acres)</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="seedArea" step="0.1" min="0.1" required>
+                                <span class="input-group-text">acres</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="seedSoilType" class="form-label">Soil Type</label>
+                            <select class="form-select" id="seedSoilType" required>
+                                <option value="">Select soil type</option>
+                                <option value="sandy">Sandy</option>
+                                <option value="loamy">Loamy</option>
+                                <option value="clay">Clay</option>
+                                <option value="silt">Silt</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Calculate</button>
+                    </form>
+                    <div id="seedResult" class="result-box">
+                        <div class="result-title">Recommended Seed Quantity:</div>
+                        <div id="seedResultContent"></div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Irrigation Calculator -->
-    <div class="col-lg-4 col-md-6 mb-4">
-      <div class="calculator-card">
-        <div class="text-center mb-4">
-          <i class="fas fa-tint fa-3x text-success mb-3"></i>
-          <h4>Irrigation Calculator</h4>
-          <p>Calculate water requirements for your crops</p>
+            <!-- Irrigation Calculator -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="calculator-card">
+                    <div class="calculator-header">
+                        <i class="fas fa-tint fa-2x text-success"></i>
+                        <h4>Irrigation Calculator</h4>
+                    </div>
+                    <p>Calculate total water requirements in field for your crops</p>
+                    <form id="irrigationForm">
+                        <div class="mb-3">
+                            <label for="irrCropType" class="form-label">Crop Type</label>
+                            <select class="form-select" id="irrCropType" required>
+                                <option value="">Select crop type</option>
+                                <option value="wheat">Wheat</option>
+                                <option value="rice">Rice</option>
+                                <option value="maize">Maize</option>
+                                <option value="cotton">Cotton</option>
+                                <option value="pulses">Pulses</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="irrArea" class="form-label">Area (acres)</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="irrArea" step="0.1" min="0.1" required>
+                                <span class="input-group-text">acres</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="irrSoilType" class="form-label">Soil Type</label>
+                            <select class="form-select" id="irrSoilType" required>
+                                <option value="">Select soil type</option>
+                                <option value="sandy">Sandy</option>
+                                <option value="loamy">Loamy</option>
+                                <option value="clay">Clay</option>
+                                <option value="silt">Silt</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Calculate</button>
+                    </form>
+                    <div id="irrigationResult" class="result-box">
+                        <div class="result-title">Water Requirement:</div>
+                        <div id="irrResultContent"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <form th:action="@{/knowledgehub/calculate-irrigation}" method="post">
-          <div class="mb-3">
-            <label for="irrigationCropType" class="form-label">Crop Type</label>
-            <select class="form-select" id="irrigationCropType" name="cropType" required>
-              <option value="">Select crop type</option>
-              <option value="wheat">Wheat</option>
-              <option value="rice">Rice</option>
-              <option value="corn">Corn</option>
-              <option value="cotton">Cotton</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="irrigationArea" class="form-label">Area (acres)</label>
-            <input type="number" class="form-control" id="irrigationArea" name="area" step="0.1" min="0.1" required>
-          </div>
-          <div class="mb-3">
-            <label for="evaporation" class="form-label">Evaporation Rate (mm/day)</label>
-            <input type="number" class="form-control" id="evaporation" name="evaporation" step="0.1" min="1" required>
-          </div>
-          <button type="submit" class="btn btn-success w-100">Calculate</button>
-        </form>
-        <div class="mt-3 p-3 bg-light rounded" th:if="${irrigationResult}">
-          <h6>Water Requirement:</h6>
-          <p th:text="${irrigationResult}"></p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
+</div>
+
+<script th:fragment="farm-calculator" th:inline="javascript">
+    // Wait for DOM to be fully loaded before attaching event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("Calculator script loaded successfully");
+
+        // Fertilizer Calculator
+        const fertilizerForm = document.getElementById('fertilizerForm');
+        if (fertilizerForm) {
+            fertilizerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const crop = document.getElementById('fertCropType').value;
+                const area = parseFloat(document.getElementById('fertArea').value);
+                const soilType = document.getElementById('fertSoilType').value;
+
+                if (!crop || !area || !soilType) {
+                    alert('Please fill in all fields');
+                    return;
+                }
+
+                const result = fertilizerCalculator(crop, soilType, area);
+
+                if (typeof result === 'string') {
+                    document.getElementById('fertResultContent').innerHTML = `<div class="text-danger">${result}</div>`;
+                } else {
+                    document.getElementById('fertResultContent').innerHTML = `
+                        <div class="result-value">Nitrogen (N): ${result['N (kg)']} kg</div>
+                        <div class="result-value">Phosphorus (P): ${result['P (kg)']} kg</div>
+                        <div class="result-value">Potassium (K): ${result['K (kg)']} kg</div>
+                    `;
+                }
+
+                document.getElementById('fertilizerResult').style.display = 'block';
+            });
+        }
+
+        // Seed Calculator
+        const seedForm = document.getElementById('seedForm');
+        if (seedForm) {
+            seedForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const crop = document.getElementById('seedCropType').value;
+                const area = parseFloat(document.getElementById('seedArea').value);
+                const soilType = document.getElementById('seedSoilType').value;
+
+                if (!crop || !area || !soilType) {
+                    alert('Please fill in all fields');
+                    return;
+                }
+
+                const result = seedCalculator(crop, soilType, area);
+
+                if (typeof result === 'string') {
+                    document.getElementById('seedResultContent').innerHTML = `<div class="text-danger">${result}</div>`;
+                } else {
+                    document.getElementById('seedResultContent').innerHTML = `
+                        <div class="result-value">Seed Required: ${result['Seed (kg)']} kg</div>
+                    `;
+                }
+
+                document.getElementById('seedResult').style.display = 'block';
+            });
+        }
+
+        // Irrigation Calculator
+        const irrigationForm = document.getElementById('irrigationForm');
+        if (irrigationForm) {
+            irrigationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const crop = document.getElementById('irrCropType').value;
+                const area = parseFloat(document.getElementById('irrArea').value);
+                const soilType = document.getElementById('irrSoilType').value;
+
+                if (!crop || !area || !soilType) {
+                    alert('Please fill in all fields');
+                    return;
+                }
+
+                const result = irrigationCalculator(crop, soilType, area);
+
+                if (typeof result === 'string') {
+                    document.getElementById('irrResultContent').innerHTML = `<div class="text-danger">${result}</div>`;
+                } else {
+                    document.getElementById('irrResultContent').innerHTML = `
+                        <div class="result-value">Water Required: ${result['Water (liters)'].toLocaleString()} liters</div>
+                    `;
+                }
+
+                document.getElementById('irrigationResult').style.display = 'block';
+            });
+        }
+
+        // Calculator Functions
+        function fertilizerCalculator(crop, soilType, area) {
+            // Base fertilizer requirements (kg per acre)
+            const fertReqs = {
+                "wheat": {"N": 45, "P": 22, "K": 18},
+                "rice": {"N": 45, "P": 18, "K": 18},
+                "maize": {"N": 55, "P": 28, "K": 22},
+                "cotton": {"N": 65, "P": 32, "K": 35},
+                "pulses": {"N": 18, "P": 12, "K": 12}
+            };
+
+            // Soil type adjustment factors
+            const soilAdjustments = {
+                "sandy": {"N": 1.1, "P": 1.2, "K": 1.1},
+                "loamy": {"N": 1.0, "P": 1.0, "K": 1.0},
+                "clay": {"N": 0.9, "P": 0.8, "K": 0.9},
+                "silt": {"N": 1.0, "P": 1.1, "K": 1.0}
+            };
+
+            if (crop.toLowerCase() in fertReqs) {
+                const req = fertReqs[crop.toLowerCase()];
+                const adjustment = soilAdjustments[soilType.toLowerCase()] || soilAdjustments.loamy;
+
+                return {
+                    "N (kg)": Math.round(req["N"] * area * adjustment.N),
+                    "P (kg)": Math.round(req["P"] * area * adjustment.P),
+                    "K (kg)": Math.round(req["K"] * area * adjustment.K)
+                };
+            } else {
+                return "Crop not in database";
+            }
+        }
+
+        function seedCalculator(crop, soilType, area) {
+            // Base seed requirements (kg per acre)
+            const seedReqs = {
+                "wheat": 45,
+                "rice": 30,
+                "maize": 9,
+                "cotton": 1.5,
+                "pulses": 10
+            };
+
+            // Soil type adjustment factors
+            const soilAdjustments = {
+                "sandy": 1.1,
+                "loamy": 1.0,
+                "clay": 0.9,
+                "silt": 1.0
+            };
+
+            if (crop.toLowerCase() in seedReqs) {
+                const adjustment = soilAdjustments[soilType.toLowerCase()] || soilAdjustments.loamy;
+                return {"Seed (kg)": Math.round(seedReqs[crop.toLowerCase()] * area * adjustment)};
+            } else {
+                return "Crop not in database";
+            }
+        }
+
+        function irrigationCalculator(crop, soilType, area) {
+            // Base irrigation requirements (liters per acre)
+            const irrigationReqs = {
+                "wheat": 1700000,
+                "rice": 2800000,
+                "maize": 2200000,
+                "cotton": 2200000,
+                "pulses": 1200000
+            };
+
+            // Soil type adjustment factors
+            const soilAdjustments = {
+                "sandy": 1.2,  // Sandy soil requires more water
+                "loamy": 1.0,
+                "clay": 0.8,   // Clay soil retains more water
+                "silt": 1.0
+            };
+
+            if (crop.toLowerCase() in irrigationReqs) {
+                const adjustment = soilAdjustments[soilType.toLowerCase()] || soilAdjustments.loamy;
+                return {"Water (liters)": Math.round(irrigationReqs[crop.toLowerCase()] * area * adjustment)};
+            } else {
+                return "Crop not in database";
+            }
+        }
+    });
+</script>
 </body>
 </html>
