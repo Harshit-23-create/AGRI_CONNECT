@@ -31,3 +31,14 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Modern Stack Additions ###
+node_modules/
+.env
+__pycache__/
+*.pyc
+venv/
+env/
+.DS_Store
+build/
+dist/

@@ -1,0 +1,14 @@
+{
+  "name": "agri-connect-root",
+  "version": "1.0.0",
+  "description": "Root project manager for AgriConnect",
+  "scripts": {
+    "start": "concurrently \"npm run start:client\" \"npm run start:server\" \"npm run start:ml\"",
+    "start:client": "cd client && npm run dev",
+    "start:server": "cd server && npm start",
+    "start:ml": "cd ml-service && python -m uvicorn main:app --reload --port 8000"
+  },
+  "dependencies": {
+    "concurrently": "^10.0.3"
+  }
+}
