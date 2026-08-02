@@ -1,0 +1,36 @@
+services:
+  # ─── Backend (Node.js / Express) ─────────────────────────────────
+  - type: web
+    name: agri-connect-server
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - key: MONGO_URI
+        sync: false          # Set in Render dashboard → copied from MongoDB Atlas
+      - key: JWT_SECRET
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: OPENWEATHER_API_KEY
+        sync: false
+      - key: CLIENT_URL
+        sync: false          # Set to your Vercel frontend URL after deploying frontend
+      - key: FASTAPI_URL
+        sync: false          # Set to your Render ML service URL + /predict
+      - key: FASTAPI_BASE_URL
+        sync: false          # Set to your Render ML service URL (base)
+      - key: PORT
+        value: 5000
+
+  # ─── ML Service (Python / FastAPI) ───────────────────────────────
+  - type: web
+    name: agri-connect-ml
+    runtime: python
+    rootDir: ml-service
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PORT
+        value: 8000
