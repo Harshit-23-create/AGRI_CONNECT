@@ -8,19 +8,19 @@ services:
     startCommand: node index.js
     envVars:
       - key: MONGO_URI
-        sync: false          # Set in Render dashboard → copied from MongoDB Atlas
+        value: mongodb+srv://harshit123412_db_user:qQqKKJI5Z6ukaKo2@cluster0.wyji4ds.mongodb.net/agriconnect?retryWrites=true&w=majority&appName=Cluster0
       - key: JWT_SECRET
-        sync: false
+        value: agriconnect_super_secret_jwt_key_2024
       - key: GEMINI_API_KEY
-        sync: false
+        value: AIzaSyB5bWZqS8dO1GljejATaeVuwQTidtfuFJc
       - key: OPENWEATHER_API_KEY
-        sync: false
+        value: beee724417f4623efe66567e4e815c89
       - key: CLIENT_URL
-        sync: false          # Set to your Vercel frontend URL after deploying frontend
+        value: https://agri-connect-frontend-kappa.vercel.app
       - key: FASTAPI_URL
-        sync: false          # Set to your Render ML service URL + /predict
+        value: https://agri-connect-ml.onrender.com/predict
       - key: FASTAPI_BASE_URL
-        sync: false          # Set to your Render ML service URL (base)
+        value: https://agri-connect-ml.onrender.com
       - key: PORT
         value: 5000
 
