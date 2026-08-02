@@ -33,7 +33,8 @@ const getProducts = async (req, res) => {
     const products = await Product.find(query).sort({ createdAt: -1 });
     res.json(products);
   } catch (error) {
-    res.status(500).json({ error: 'Server error fetching products' });
+    console.error('Product fetch error:', error.message);
+    res.status(500).json({ error: 'Server error fetching products', details: error.message });
   }
 };
 
