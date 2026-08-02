@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 const connectDB = async (retries = 5) => {
   for (let i = 0; i < retries; i++) {
     try {
-      const conn = await mongoose.connect(process.env.MONGO_URI, {
+      const uri = "mongodb+srv://harshit123412_db_user:qQqKKJI5Z6ukaKo2@cluster0.wyji4ds.mongodb.net/agriconnect?retryWrites=true&w=majority&appName=Cluster0";
+      const conn = await mongoose.connect(uri, {
         serverSelectionTimeoutMS: 10000,
         connectTimeoutMS: 10000,
       });
