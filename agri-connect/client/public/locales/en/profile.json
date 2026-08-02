@@ -1,0 +1,17 @@
+{
+  "title": "👤 Farmer Profile",
+  "subtitle": "Manage your farm location, account details, and language preferences",
+  "username": "Full Name",
+  "email": "Email Address",
+  "phone": "Phone Number",
+  "state": "State",
+  "city": "District / City",
+  "village": "Village",
+  "landSize": "Land Size (Acres)",
+  "primaryCrop": "Primary Crop",
+  "serviceProvider": "Service Provider Status",
+  "preferredLanguage": "Preferred Language",
+  "updateProfile": "Edit Profile",
+  "securityTitle": "Account Security",
+  "securityDesc": "Your account is secured with 256-bit encryption and bcrypt password hashing."
+}

@@ -1,0 +1,15 @@
+{
+  "welcome": "আবার স্বাগতম",
+  "subtitle": "রিয়েল-টাইম ফসল, আবহাওয়া এবং বাজারের অন্তর্দৃষ্টির জন্য আপনার ইউনিফাইড স্মার্ট এগ্রিকালচার ড্যাশবোর্ড।",
+  "quickActions": "দ্রুত অ্যাকশন",
+  "weatherWidget": "আবহাওয়ার পূর্বাভাস",
+  "cropAdvisor": "মাটি ও ফসল উপদেষ্টা",
+  "aiAssistant": "AgriBot AI সহকারী",
+  "schemes": "সরকারি স্কিম",
+  "marketPrices": "বাজার মূল্য",
+  "recentUpdates": "সাম্প্রতিক কৃষি আপডেট",
+  "statFarmers": "কৃষক নিবন্ধিত",
+  "statStates": "রাজ্যগুলি আচ্ছাদিত",
+  "statAccuracy": "ফসল সঠিকতা",
+  "statAvailability": "এআই উপলব্ধতা"
+}

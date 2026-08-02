@@ -1,0 +1,12 @@
+{
+  "title": "🤖 AgriBot AI ચેટ",
+  "subtitle": "ખેતી વિશે કંઈપણ પૂછો — Gemini & Agricultural AI દ્વારા સંચાલિત",
+  "onlineStatus": "ઑનલાઇન — જેમિની AI દ્વારા સંચાલિત",
+  "inputPlaceholder": "AgriBot ને પાક, જીવાતો, ખાતરો વિશે પૂછો... (મોકલવા માટે એન્ટર કરો, નવી લાઇન માટે Shift+Enter)",
+  "send": "મોકલો",
+  "retry": "🔄 ફરી પ્રયાસ વિનંતી",
+  "micTooltip": "તમારી ભાષામાં બોલવા માટે ક્લિક કરો",
+  "speakTooltip": "AgriBot નો પ્રતિભાવ સાંભળો",
+  "suggestions": "ઝડપી પ્રશ્નો",
+  "listeningPrompt": "🎤 સાંભળી રહ્યા છીએ... કૃપા કરીને તમારો ખેતીનો પ્રશ્ન સ્પષ્ટ રીતે બોલો."
+}

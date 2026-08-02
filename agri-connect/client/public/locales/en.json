@@ -1,0 +1,153 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "weather": "Weather",
+    "crop": "Crop Advisor",
+    "chat": "AI Chat",
+    "marketplace": "Marketplace",
+    "schemes": "Gov. Schemes",
+    "storage": "Storage",
+    "labour": "Labour & Tools",
+    "loans": "Loan Assistant",
+    "knowledge": "Knowledge Hub",
+    "profile": "Profile",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout"
+  },
+  "common": {
+    "appName": "AgriConnect",
+    "search": "Search",
+    "save": "Save Changes",
+    "cancel": "Cancel",
+    "loading": "Loading...",
+    "retry": "Retry",
+    "submit": "Submit",
+    "apply": "Apply Now",
+    "contact": "Contact Seller",
+    "selectLanguage": "Select Language",
+    "error": "An error occurred",
+    "success": "Success",
+    "voiceInput": "Voice Input",
+    "speak": "Listen",
+    "stop": "Stop Listening",
+    "listening": "Listening... Speak now",
+    "viewDetails": "View Details"
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "subtitle": "Your unified smart agriculture dashboard for real-time crop, weather, and market insights.",
+    "quickActions": "Quick Actions",
+    "weatherWidget": "Weather Forecast",
+    "cropAdvisor": "Soil & Crop Advisor",
+    "aiAssistant": "AgriBot AI Assistant",
+    "schemes": "Government Schemes",
+    "marketPrices": "Market Prices",
+    "recentUpdates": "Recent Agricultural Updates"
+  },
+  "weather": {
+    "title": "🌤️ Weather Forecast & Farm Alerts",
+    "subtitle": "Real-time weather data tailored for your agricultural region",
+    "selectLocation": "Select Location",
+    "state": "State",
+    "city": "City / District",
+    "village": "Village (Optional)",
+    "currentTemp": "Current Temperature",
+    "humidity": "Humidity",
+    "rainfall": "Rainfall Forecast",
+    "windSpeed": "Wind Speed",
+    "farmingAdvice": "Farming Advisory",
+    "alerts": "Weather Alerts"
+  },
+  "crop": {
+    "title": "🌱 Smart Crop Recommendation",
+    "subtitle": "AI-driven crop selection based on soil NPK levels and climate metrics",
+    "nitrogen": "Nitrogen (N) [kg/ha]",
+    "phosphorus": "Phosphorus (P) [kg/ha]",
+    "potassium": "Potassium (K) [kg/ha]",
+    "temperature": "Temperature (°C)",
+    "humidity": "Humidity (%)",
+    "ph": "Soil pH Level",
+    "rainfall": "Rainfall (mm)",
+    "getRecommendation": "Get AI Recommendation",
+    "recommendedCrop": "Recommended Crop",
+    "confidence": "Confidence Score",
+    "suitableSeason": "Suitable Season",
+    "waterReq": "Water Requirement",
+    "fertilizerRec": "Fertilizer Recommendation",
+    "farmingTips": "Farming Tips & Care Guide"
+  },
+  "chat": {
+    "title": "🤖 AgriBot AI Chat",
+    "subtitle": "Ask anything about farming — powered by Gemini & Agricultural AI",
+    "onlineStatus": "Online — Powered by Gemini AI",
+    "inputPlaceholder": "Ask AgriBot about crops, pests, fertilizers... (Enter to send, Shift+Enter for newline)",
+    "send": "Send",
+    "retry": "🔄 Retry Request",
+    "micTooltip": "Click to speak in your language",
+    "speakTooltip": "Listen to AgriBot's response",
+    "suggestions": "Quick Questions",
+    "listeningPrompt": "🎤 Listening... Please speak your farming question clearly."
+  },
+  "marketplace": {
+    "title": "🛒 Farmers Marketplace",
+    "subtitle": "Buy and sell fresh produce, seeds, tools, and fertilizers directly",
+    "searchPlaceholder": "Search products, seeds, tools...",
+    "allCategories": "All Categories",
+    "price": "Price",
+    "seller": "Seller",
+    "location": "Location",
+    "buyNow": "Buy Now",
+    "contactSeller": "Contact Seller"
+  },
+  "schemes": {
+    "title": "🏛️ Government Agricultural Schemes",
+    "subtitle": "Explore government subsidies, financial aid, and insurance programs",
+    "eligibility": "Eligibility Criteria",
+    "benefits": "Key Benefits",
+    "documents": "Required Documents",
+    "applyNow": "Apply Now"
+  },
+  "storage": {
+    "title": "🏭 Cold Storage & Warehouses",
+    "subtitle": "Find verified storage units near your farm to prevent post-harvest loss",
+    "capacity": "Total Capacity",
+    "available": "Available Space",
+    "pricePerTon": "Price per Ton / Month",
+    "bookStorage": "Book Storage Space"
+  },
+  "labour": {
+    "title": "👷 Labour & Farm Equipment Hire",
+    "subtitle": "Book skilled agricultural workers and rent modern farming tools",
+    "rate": "Daily / Hourly Rate",
+    "contactLabour": "Hire Now / Rent Tool"
+  },
+  "loans": {
+    "title": "💰 Kisan Loan & Financial Assistant",
+    "subtitle": "Check eligibility for crop loans, tractor financing, and Kisan Credit Card (KCC)",
+    "interestRate": "Interest Rate",
+    "maxLoan": "Maximum Loan Amount",
+    "tenure": "Tenure",
+    "checkEligibility": "Check Loan Eligibility"
+  },
+  "knowledge": {
+    "title": "📚 Agricultural Knowledge Hub",
+    "subtitle": "Learn best practices for crop management, pest control, and organic farming",
+    "readArticle": "Read Full Guide"
+  },
+  "profile": {
+    "title": "👤 Farmer Profile",
+    "subtitle": "Manage your farm location, crops, and language preferences",
+    "username": "Full Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "state": "State",
+    "city": "District / City",
+    "village": "Village",
+    "landSize": "Land Size (Acres)",
+    "primaryCrop": "Primary Crop",
+    "serviceProvider": "Service Provider Status",
+    "preferredLanguage": "Preferred Language",
+    "updateProfile": "Update Profile"
+  }
+}

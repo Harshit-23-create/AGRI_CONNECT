@@ -1,0 +1,15 @@
+{
+  "welcome": "ਵਾਪਸ ਸਵਾਗਤ",
+  "subtitle": "ਰੀਅਲ-ਟਾਈਮ ਫਸਲ, ਮੌਸਮ, ਅਤੇ ਬਾਜ਼ਾਰ ਦੀ ਸੂਝ ਲਈ ਤੁਹਾਡਾ ਏਕੀਕ੍ਰਿਤ ਸਮਾਰਟ ਐਗਰੀਕਲਚਰ ਡੈਸ਼ਬੋਰਡ।",
+  "quickActions": "ਤੇਜ਼ ਕਾਰਵਾਈਆਂ",
+  "weatherWidget": "ਮੌਸਮ ਦੀ ਭਵਿੱਖਬਾਣੀ",
+  "cropAdvisor": "ਮਿੱਟੀ ਅਤੇ ਫਸਲ ਸਲਾਹਕਾਰ",
+  "aiAssistant": "AgriBot AI ਸਹਾਇਕ",
+  "schemes": "ਸਰਕਾਰੀ ਸਕੀਮਾਂ",
+  "marketPrices": "ਬਾਜ਼ਾਰ ਦੀਆਂ ਕੀਮਤਾਂ",
+  "recentUpdates": "ਹਾਲੀਆ ਖੇਤੀਬਾੜੀ ਅੱਪਡੇਟ",
+  "statFarmers": "ਕਿਸਾਨ ਰਜਿਸਟਰਡ",
+  "statStates": "ਰਾਜਾਂ ਨੂੰ ਕਵਰ ਕੀਤਾ ਗਿਆ",
+  "statAccuracy": "ਫਸਲ ਦੀ ਸ਼ੁੱਧਤਾ",
+  "statAvailability": "AI ਉਪਲਬਧਤਾ"
+}

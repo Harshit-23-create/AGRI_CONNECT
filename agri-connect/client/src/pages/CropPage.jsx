@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { getCropRecommendation } from '../services/api';
 import toast from 'react-hot-toast';
 
@@ -16,21 +17,22 @@ const getCropEmoji = (crop) => {
   return CROP_EMOJIS[key] || '🌱';
 };
 
-const fields = [
-  { name: 'nitrogen', label: 'Nitrogen (N)', placeholder: 'e.g. 90', unit: 'kg/ha' },
-  { name: 'phosphorus', label: 'Phosphorus (P)', placeholder: 'e.g. 42', unit: 'kg/ha' },
-  { name: 'potassium', label: 'Potassium (K)', placeholder: 'e.g. 43', unit: 'kg/ha' },
-  { name: 'temperature', label: 'Temperature', placeholder: 'e.g. 20.8', unit: '°C' },
-  { name: 'humidity', label: 'Humidity', placeholder: 'e.g. 82', unit: '%' },
-  { name: 'ph', label: 'Soil pH', placeholder: 'e.g. 6.5', unit: 'pH' },
-  { name: 'rainfall', label: 'Rainfall', placeholder: 'e.g. 202', unit: 'mm' },
-];
-
 const CropPage = () => {
+  const { t } = useTranslation(['crop', 'common']);
   const [form, setForm] = useState({ nitrogen: '', phosphorus: '', potassium: '', temperature: '', humidity: '', ph: '', rainfall: '' });
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  const fields = [
+    { name: 'nitrogen', labelKey: 'crop:nitrogen', placeholder: 'e.g. 90' },
+    { name: 'phosphorus', labelKey: 'crop:phosphorus', placeholder: 'e.g. 42' },
+    { name: 'potassium', labelKey: 'crop:potassium', placeholder: 'e.g. 43' },
+    { name: 'temperature', labelKey: 'crop:temperature', placeholder: 'e.g. 20.8' },
+    { name: 'humidity', labelKey: 'crop:humidity', placeholder: 'e.g. 82' },
+    { name: 'ph', labelKey: 'crop:ph', placeholder: 'e.g. 6.5' },
+    { name: 'rainfall', labelKey: 'crop:rainfall', placeholder: 'e.g. 202' },
+  ];
 
   const handleChange = (e) => setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
 
@@ -51,9 +53,9 @@ const CropPage = () => {
       };
       const { data } = await getCropRecommendation(payload);
       setResult(data);
-      toast.success('Crop recommendation ready!');
+      toast.success(t('common:success'));
     } catch (err) {
-      const msg = err?.response?.data?.error || 'Failed to get recommendation. Ensure ML service is running.';
+      const msg = err?.response?.data?.error || t('common:error');
       setError(msg);
     } finally {
       setLoading(false);
@@ -63,19 +65,19 @@ const CropPage = () => {
   return (
     <div>
       <div className="page-header">
-        <h1>🌱 Crop Recommendation</h1>
-        <p>Enter your soil parameters to get an AI-powered crop recommendation</p>
+        <h1>{t('crop:title')}</h1>
+        <p>{t('crop:subtitle')}</p>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28, alignItems: 'start' }}>
         {/* Form */}
         <div className="card">
-          <h3 style={{ color: 'var(--text-white)', marginBottom: 20 }}>Soil & Climate Parameters</h3>
+          <h3 style={{ color: 'var(--text-white)', marginBottom: 20 }}>{t('crop:subtitle')}</h3>
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
             <div className="crop-form-grid">
               {fields.map((f) => (
                 <div key={f.name} className="form-group">
-                  <label>{f.label} <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}>({f.unit})</span></label>
+                  <label>{t(f.labelKey)}</label>
                   <input
                     type="number"
                     step="any"
@@ -90,7 +92,7 @@ const CropPage = () => {
               ))}
             </div>
             <button type="submit" className="btn btn-primary btn-full mt-24" disabled={loading}>
-              {loading ? '🔍 Analyzing soil...' : '🌱 Get Recommendation'}
+              {loading ? t('common:loading') : `🌱 ${t('crop:getRecommendation')}`}
             </button>
           </form>
         </div>
@@ -102,9 +104,9 @@ const CropPage = () => {
           {!result && !loading && (
             <div className="card" style={{ textAlign: 'center', padding: '40px 24px' }}>
               <div style={{ fontSize: '4rem', marginBottom: 16 }}>🌿</div>
-              <h3 style={{ color: 'var(--text-secondary)' }}>Your Recommendation</h3>
+              <h3 style={{ color: 'var(--text-secondary)' }}>{t('crop:recommendedCrop')}</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.87rem', marginTop: 8 }}>
-                Fill in the soil parameters on the left and click "Get Recommendation" to discover the best crop for your land.
+                {t('crop:subtitle')}
               </p>
             </div>
           )}
@@ -113,7 +115,7 @@ const CropPage = () => {
             <div className="card flex-center" style={{ minHeight: 160 }}>
               <div style={{ textAlign: 'center' }}>
                 <div className="loader-spinner" style={{ margin: '0 auto 12px' }} />
-                <p style={{ color: 'var(--text-muted)' }}>Analyzing soil data with ML model...</p>
+                <p style={{ color: 'var(--text-muted)' }}>{t('common:loading')}</p>
               </div>
             </div>
           )}
@@ -125,8 +127,8 @@ const CropPage = () => {
                 <div>
                   <h2 style={{ fontSize: '2.4rem', margin: 0 }}>{result.crop.charAt(0).toUpperCase() + result.crop.slice(1)}</h2>
                   <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
-                    <span className="badge badge-green">✅ Recommended</span>
-                    <span className="badge badge-blue">🎯 {result.confidence_score}% Match</span>
+                    <span className="badge badge-green">✅ {t('crop:recommendedCrop')}</span>
+                    <span className="badge badge-blue">🎯 {result.confidence_score}% {t('crop:confidence')}</span>
                   </div>
                 </div>
               </div>
@@ -139,44 +141,27 @@ const CropPage = () => {
                 <div className="info-item" style={{ padding: 16 }}>
                   <div className="info-item-icon">🌤️</div>
                   <div className="info-item-text">
-                    <h4>Suitable Season</h4>
+                    <h4>{t('crop:suitableSeason')}</h4>
                     <p>{result.suitable_season}</p>
                   </div>
                 </div>
                 <div className="info-item" style={{ padding: 16 }}>
                   <div className="info-item-icon">💧</div>
                   <div className="info-item-text">
-                    <h4>Water Requirement</h4>
+                    <h4>{t('crop:waterReq')}</h4>
                     <p>{result.water_requirement}</p>
                   </div>
                 </div>
                 <div className="info-item" style={{ padding: 16, gridColumn: 'span 2' }}>
                   <div className="info-item-icon">🌿</div>
                   <div className="info-item-text">
-                    <h4>Fertilizer Recommendation</h4>
+                    <h4>{t('crop:fertilizerRec')}</h4>
                     <p>{result.fertilizer_recommendation}</p>
                   </div>
                 </div>
               </div>
             </div>
           )}
-
-          <div className="card">
-            <h4 style={{ color: 'var(--text-white)', marginBottom: 12 }}>📖 Parameter Guide</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {[
-                ['N (Nitrogen)', 'Essential for leaf growth and green color (0-140 kg/ha)'],
-                ['P (Phosphorus)', 'Supports root development and flowering (5-145 kg/ha)'],
-                ['K (Potassium)', 'Improves disease resistance (5-205 kg/ha)'],
-                ['Soil pH', 'Acidity/alkalinity (3.5-9.5, ideal 6.0-7.0)'],
-              ].map(([k, v]) => (
-                <div key={k} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                  <span style={{ color: 'var(--primary-light)', fontSize: '0.8rem', fontWeight: 700, whiteSpace: 'nowrap', paddingTop: 2 }}>{k}:</span>
-                  <span style={{ color: 'var(--text-muted)', fontSize: '0.82rem' }}>{v}</span>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </div>

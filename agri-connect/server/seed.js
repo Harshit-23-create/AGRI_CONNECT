@@ -1,8 +1,58 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
+const https = require('https');
 const Product = require('./models/Product');
 const Article = require('./models/Article');
 const connectDB = require('./config/db');
+
+const allLangs = ['hi', 'pa', 'mr', 'gu', 'bn', 'ta', 'te', 'kn', 'ml', 'or'];
+
+async function translateText(text, targetLang) {
+  return new Promise((resolve) => {
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
+    https.get(url, (res) => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => {
+        try {
+          const json = JSON.parse(data);
+          let translated = '';
+          if (json && json[0]) {
+            json[0].forEach(item => {
+              if (item[0]) translated += item[0];
+            });
+          }
+          resolve(translated || text);
+        } catch (e) {
+          resolve(text);
+        }
+      });
+    }).on('error', () => resolve(text));
+  });
+}
+
+async function translateObject(obj, currentKey = '') {
+  const result = {};
+  for (const key of Object.keys(obj)) {
+    const val = obj[key];
+    if (typeof val === 'string') {
+      if (key === 'phone' || key === 'email') {
+        result[key] = val; // Skip translation for these fields
+      } else {
+        result[key] = { en: val };
+        for (const lang of allLangs) {
+          result[key][lang] = await translateText(val, lang);
+          await new Promise(r => setTimeout(r, 100)); // anti rate limit
+        }
+      }
+    } else if (typeof val === 'object' && val !== null && !Array.isArray(val)) {
+      result[key] = await translateObject(val, key);
+    } else {
+      result[key] = val;
+    }
+  }
+  return result;
+}
 
 const seedProducts = [
   {
@@ -78,9 +128,23 @@ const seedData = async () => {
     await Product.deleteMany();
     await Article.deleteMany();
     
+    console.log('Translating Products...');
+    const translatedProducts = [];
+    for (let i = 0; i < seedProducts.length; i++) {
+      console.log(`Processing Product ${i+1}/${seedProducts.length}`);
+      translatedProducts.push(await translateObject(seedProducts[i]));
+    }
+    
+    console.log('Translating Articles...');
+    const translatedArticles = [];
+    for (let i = 0; i < seedArticles.length; i++) {
+      console.log(`Processing Article ${i+1}/${seedArticles.length}`);
+      translatedArticles.push(await translateObject(seedArticles[i]));
+    }
+    
     // Insert new
-    await Product.insertMany(seedProducts);
-    await Article.insertMany(seedArticles);
+    await Product.insertMany(translatedProducts);
+    await Article.insertMany(translatedArticles);
     
     console.log('✅ Database seeded successfully!');
     process.exit(0);

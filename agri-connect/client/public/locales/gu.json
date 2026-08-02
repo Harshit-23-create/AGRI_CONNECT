@@ -1,0 +1,153 @@
+{
+  "nav": {
+    "dashboard": "ડેશબોર્ડ",
+    "weather": "હવામાન",
+    "crop": "પાક સલાહકાર",
+    "chat": "એઆઈ ચેટ",
+    "marketplace": "માર્કેટપ્લેસ",
+    "schemes": "સરકારી યોજનાઓ",
+    "storage": "સ્ટોરેજ",
+    "labour": "મજૂર અને સાધનો",
+    "loans": "લોન સહાયક",
+    "knowledge": "જ્ઞાન કેન્દ્ર",
+    "profile": "પ્રોફાઇલ",
+    "login": "લોગિન",
+    "register": "રજિસ્ટર",
+    "logout": "લોગઆઉટ"
+  },
+  "common": {
+    "appName": "એગ્રીકનેક્ટ",
+    "search": "શોધો",
+    "save": "સાચવો",
+    "cancel": "રદ કરો",
+    "loading": "લોડ થઈ રહ્યું છે...",
+    "retry": "ફરી પ્રયાસ કરો",
+    "submit": "સબમિટ કરો",
+    "apply": "અરજી કરો",
+    "contact": "સંપર્ક કરો",
+    "selectLanguage": "ભાષા પસંદ કરો",
+    "error": "ભૂલ આવી",
+    "success": "સફળતા",
+    "voiceInput": "વોઇસ ઇનપુટ",
+    "speak": "સાંભળો",
+    "stop": "બોલવાનું બંધ કરો",
+    "listening": "સાંભળી રહ્યું છે...",
+    "viewDetails": "વિગતો જુઓ"
+  },
+  "dashboard": {
+    "welcome": "નમસ્તે",
+    "subtitle": "તમારું સ્માર્ટ કૃષિ ડેશબોર્ડ.",
+    "quickActions": "ઝડપી કાર્યો",
+    "weatherWidget": "હવામાન આગાહી",
+    "cropAdvisor": "જમીન અને પાક સલાહકાર",
+    "aiAssistant": "એગ્રીબોટ એઆઈ સહાયક",
+    "schemes": "સરકારી યોજનાઓ",
+    "marketPrices": "બજાર ભાવ",
+    "recentUpdates": "તાજા કૃષિ સમાચાર"
+  },
+  "weather": {
+    "title": "🌤️ હવામાન આગાહી અને ખેતી એલર્ટ",
+    "subtitle": "તમારા વિસ્તાર માટે સચોટ હવામાન માહિતી",
+    "selectLocation": "સ્થળ પસંદ કરો",
+    "state": "રાજ્ય",
+    "city": "જિલ્લો / શહેર",
+    "village": "ગામ",
+    "currentTemp": "વર્તમાન તાપમાન",
+    "humidity": "ભેજ",
+    "rainfall": "વરસાદની આગાહી",
+    "windSpeed": "પવનની ગતિ",
+    "farmingAdvice": "ખેતી સલાહ",
+    "alerts": "હવામાન એલર્ટ"
+  },
+  "crop": {
+    "title": "🌱 સ્માર્ટ પાક ભલામણ",
+    "subtitle": "જમીનના એનપીકે અને હવામાન આધારિત પાક સલાહ",
+    "nitrogen": "નાઇટ્રોજન (N) [કિલો/હેક્ટર]",
+    "phosphorus": "ફોસ્ફરસ (P) [કિલો/હેક્ટર]",
+    "potassium": "પોટાશ (K) [કિલો/હેક્ટર]",
+    "temperature": "તાપમાન (°C)",
+    "humidity": "ભેજ (%)",
+    "ph": "જમીનનું pH સ્તર",
+    "rainfall": "વરસાદ (મીમી)",
+    "getRecommendation": "પાક સલાહ મેળવો",
+    "recommendedCrop": "ભલામણ કરેલ પાક",
+    "confidence": "ચોકસાઈ સ્કોર",
+    "suitableSeason": "યોગ્ય ઋતુ",
+    "waterReq": "પાણીની જરૂરિયાત",
+    "fertilizerRec": "ખાતર ભલામણ",
+    "farmingTips": "ખેતી ટિપ્સ"
+  },
+  "chat": {
+    "title": "🤖 એગ્રીબોટ એઆઈ ચેટ",
+    "subtitle": "ખેતી વિશે કોઈ પણ પ્રશ્ન પૂછો — જેમિની એઆઈ સંચાલિત",
+    "onlineStatus": "ઓનલાઇન — જેમિની એઆઈ સંચાલિત",
+    "inputPlaceholder": "પાક, રોગ-જીવાત કે ખાતર વિશે પૂછો...",
+    "send": "મોકલો",
+    "retry": "🔄 ફરી પ્રયાસ કરો",
+    "micTooltip": "બોલીને પ્રશ્ન પૂછો",
+    "speakTooltip": "જવાબ સાંભળો",
+    "suggestions": "ઝડપી સૂચનો",
+    "listeningPrompt": "🎤 સાંભળી રહ્યું છે... કૃપા કરીને તમારો પ્રશ્ન બોલો."
+  },
+  "marketplace": {
+    "title": "🛒 કિસાન માર્કેટપ્લેસ",
+    "subtitle": "પાક, બિયારણ, સાધનો અને ખાતર ખરીદો અને વેચો",
+    "searchPlaceholder": "ઉત્પાદનો શોધો...",
+    "allCategories": "બધી કેટેગરીઝ",
+    "price": "કિંમત",
+    "seller": "વેચનાર",
+    "location": "સ્થળ",
+    "buyNow": "હવે ખરીદો",
+    "contactSeller": "સંપર્ક કરો"
+  },
+  "schemes": {
+    "title": "🏛️ સરકારી કૃષિ યોજનાઓ",
+    "subtitle": "સરકારી સબસિડી અને પાક વીમા યોજનાઓ જુઓ",
+    "eligibility": "પાત્રતા",
+    "benefits": "મુખ્ય લાભો",
+    "documents": "જરૂરી દસ્તાવેજો",
+    "applyNow": "અરજી કરો"
+  },
+  "storage": {
+    "title": "🏭 કોલ્ડ સ્ટોરેજ અને ગોડાઉન",
+    "subtitle": "નજીકના સ્ટોરેજ સેન્ટર શોધો",
+    "capacity": "કુલ ક્ષમતા",
+    "available": "ઉપલબ્ધ જગ્યા",
+    "pricePerTon": "ભાડું પ્રતિ ટન / મહિનો",
+    "bookStorage": "સ્ટોરેજ બુક કરો"
+  },
+  "labour": {
+    "title": "👷 મજૂર અને મશીનરી ભાડે લો",
+    "subtitle": "કુશળ મજૂરો અને સાધનો બુક કરો",
+    "rate": "દૈનિક / કલાકદીઠ દર",
+    "contactLabour": "હવે બુક કરો"
+  },
+  "loans": {
+    "title": "💰 કિસાન લોન સહાયક",
+    "subtitle": "કિસાન ક્રેડિટ કાર્ડ (KCC) અને પાક લોનની ચકાસણી કરો",
+    "interestRate": "વ્યાજ દર",
+    "maxLoan": "મહત્તમ લોન રકમ",
+    "tenure": "સમયગાળો",
+    "checkEligibility": "પાત્રતા ચકાસો"
+  },
+  "knowledge": {
+    "title": "📚 કૃષિ જ્ઞાન કેન્દ્ર",
+    "subtitle": "પાક વ્યવસ્થાપન અને જૈવિક ખેતીની માહિતી",
+    "readArticle": "પૂરો લેખ વાંચો"
+  },
+  "profile": {
+    "title": "👤 કિસાન પ્રોફાઇલ",
+    "subtitle": "તમારી પ્રોફાઇલ અને ભાષા પસંદગી મેનેજ કરો",
+    "username": "પૂરું નામ",
+    "email": "ઇમેઇલ સરનામું",
+    "phone": "ફોન નંબર",
+    "state": "રાજ્ય",
+    "city": "જિલ્લો / શહેર",
+    "village": "ગામ",
+    "landSize": "જમીન (એકરમાં)",
+    "primaryCrop": "મુખ્ય પાક",
+    "serviceProvider": "સેવા આપનાર સ્થિતિ",
+    "preferredLanguage": "પસંદગીની ભાષા",
+    "updateProfile": "પ્રોફાઇલ અપડેટ કરો"
+  }
+}

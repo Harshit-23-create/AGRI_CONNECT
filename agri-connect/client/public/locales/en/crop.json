@@ -1,0 +1,23 @@
+{
+  "title": "🌱 Smart Crop Recommendation",
+  "subtitle": "AI-driven crop selection based on soil NPK levels and climate metrics",
+  "nitrogen": "Nitrogen (N) [kg/ha]",
+  "phosphorus": "Phosphorus (P) [kg/ha]",
+  "potassium": "Potassium (K) [kg/ha]",
+  "temperature": "Temperature (°C)",
+  "humidity": "Humidity (%)",
+  "ph": "Soil pH Level",
+  "rainfall": "Rainfall (mm)",
+  "getRecommendation": "Get AI Recommendation",
+  "recommendedCrop": "Recommended Crop",
+  "confidence": "Match Score",
+  "suitableSeason": "Suitable Season",
+  "waterReq": "Water Requirement",
+  "fertilizerRec": "Fertilizer Recommendation",
+  "farmingTips": "Farming Tips & Care Guide",
+  "paramGuide": "Soil Parameter Guide",
+  "nitrogenDesc": "Essential for leaf growth and green color (0-140 kg/ha)",
+  "phosphorusDesc": "Supports root development and flowering (5-145 kg/ha)",
+  "potassiumDesc": "Improves disease resistance (5-205 kg/ha)",
+  "phDesc": "Acidity/alkalinity level (3.5-9.5, ideal 6.0-7.0)"
+}

@@ -1,0 +1,153 @@
+{
+  "nav": {
+    "dashboard": "ਡੈਸ਼ਬੋਰਡ",
+    "weather": "ਮੌਸਮ",
+    "crop": "ਫ਼ਸਲ ਸਲਾਹਕਾਰ",
+    "chat": "ਏਆਈ ਚੈਟ",
+    "marketplace": "ਮਾਰਕੀਟਪਲੇਸ",
+    "schemes": "ਸਰਕਾਰੀ ਸਕੀਮਾਂ",
+    "storage": "ਸਟੋਰੇਜ",
+    "labour": "ਮਜ਼ਦੂਰ ਅਤੇ ਔਜ਼ਾਰ",
+    "loans": "ਕਰਜ਼ਾ ਸਹਾਇਕ",
+    "knowledge": "ਗਿਆਨ ਕੇਂਦਰ",
+    "profile": "ਪ੍ਰੋਫਾਈਲ",
+    "login": "ਲਾਗਇਨ",
+    "register": "ਰਜਿਸਟਰ",
+    "logout": "ਲਾਗਆਉਟ"
+  },
+  "common": {
+    "appName": "ਐਗਰੀਕਨੈਕਟ",
+    "search": "ਖੋਜੋ",
+    "save": "ਸਭ ਸੰਭਾਲੋ",
+    "cancel": "ਰੱਦ ਕਰੋ",
+    "loading": "ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...",
+    "retry": "ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ",
+    "submit": "ਜਮ੍ਹਾਂ ਕਰੋ",
+    "apply": "ਅਪਲਾਈ ਕਰੋ",
+    "contact": "ਵੇਚਣ ਵਾਲੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ",
+    "selectLanguage": "ਭਾਸ਼ਾ ਚੁਣੋ",
+    "error": "ਇੱਕ ਗਲਤੀ ਹੋਈ",
+    "success": "ਸਫਲਤਾ",
+    "voiceInput": "ਵਾਇਸ ਇਨਪੁਟ",
+    "speak": "ਸੁਣੋ",
+    "stop": "ਬੋਲਣਾ ਬੰਦ ਕਰੋ",
+    "listening": "ਸੁਣ ਰਿਹਾ ਹੈ...",
+    "viewDetails": "ਵੇਰਵੇ ਦੇਖੋ"
+  },
+  "dashboard": {
+    "welcome": "ਜੀ ਆਇਆਂ ਨੂੰ",
+    "subtitle": "ਤੁਹਾਡਾ ਸਮਾਰਟ ਖੇਤੀਬਾੜੀ ਡੈਸ਼ਬੋਰਡ।",
+    "quickActions": "ਤੇਜ਼ ਕਾਰਵਾਈਆਂ",
+    "weatherWidget": "ਮੌਸਮ ਦਾ ਪੂਰਵ-ਅਨੁਮਾਨ",
+    "cropAdvisor": "ਮਿੱਟੀ ਅਤੇ ਫ਼ਸਲ ਸਲਾਹਕਾਰ",
+    "aiAssistant": "ਐਗਰੀਬੋਟ ਏਆਈ ਸਹਾਇਕ",
+    "schemes": "ਸਰਕਾਰੀ ਸਕੀਮਾਂ",
+    "marketPrices": "ਮੰਡੀ ਦੇ ਭਾਅ",
+    "recentUpdates": "ਤਾਜ਼ਾ ਖੇਤੀਬਾੜੀ ਖ਼ਬਰਾਂ"
+  },
+  "weather": {
+    "title": "🌤️ ਮੌਸਮ ਪੂਰਵ-ਅਨੁਮਾਨ ਅਤੇ ਖੇਤੀਬਾੜੀ ਅਲਰਟ",
+    "subtitle": "ਤੁਹਾਡੇ ਖੇਤਰ ਲਈ ਸਹੀ ਮੌਸਮ ਜਾਣਕਾਰੀ",
+    "selectLocation": "ਸਥਾਨ ਚੁਣੋ",
+    "state": "ਰਾਜ",
+    "city": "ਜ਼ਿਲ੍ਹਾ / ਸ਼ਹਿਰ",
+    "village": "ਪਿੰਡ",
+    "currentTemp": "ਮੌਜੂਦਾ ਤਾਪਮਾਨ",
+    "humidity": "ਨਮੀ",
+    "rainfall": "ਮੀਂਹ ਦਾ ਅਨੁਮਾਨ",
+    "windSpeed": "ਹਵਾ ਦੀ ਰਫ਼ਤਾਰ",
+    "farmingAdvice": "ਖੇਤੀਬਾੜੀ ਸਲਾਹ",
+    "alerts": "ਮੌਸਮ ਅਲਰਟ"
+  },
+  "crop": {
+    "title": "🌱 ਸਮਾਰਟ ਫ਼ਸਲ ਸੁਝਾਅ",
+    "subtitle": "ਮਿੱਟੀ ਦੇ ਐਨਪੀਕੇ ਅਤੇ ਮੌਸਮ ਦੇ ਆਧਾਰ 'ਤੇ ਫ਼ਸਲ ਸੁਝਾਅ",
+    "nitrogen": "ਨਾਇਟ੍ਰੋਜਨ (N) [ਕਿਲੋ/ਹੈਕਟੇਅਰ]",
+    "phosphorus": "ਫਾਸਫੋਰਸ (P) [ਕਿਲੋ/ਹੈਕਟੇਅਰ]",
+    "potassium": "ਪੋਟਾਸ਼ੀਅਮ (K) [ਕਿਲੋ/ਹੈਕਟੇਅਰ]",
+    "temperature": "ਤਾਪਮਾਨ (°C)",
+    "humidity": "ਨਮੀ (%)",
+    "ph": "ਮਿੱਟੀ ਦਾ pH ਪੱਧਰ",
+    "rainfall": "ਮੀਂਹ (ਮਿਮੀ)",
+    "getRecommendation": "ਫ਼ਸਲ ਸੁਝਾਅ ਲਵੋ",
+    "recommendedCrop": "ਸੁਝਾਈ ਗਈ ਫ਼ਸਲ",
+    "confidence": "ਸਟੀਕਤਾ ਸਕੋਰ",
+    "suitableSeason": "ਢੁਕਵਾਂ ਮੌਸਮ",
+    "waterReq": "ਪਾਣੀ ਦੀ ਲੋੜ",
+    "fertilizerRec": "ਖਾਦ ਦੀ ਸਲਾਹ",
+    "farmingTips": "ਖੇਤੀਬਾੜੀ ਸੁਝਾਅ"
+  },
+  "chat": {
+    "title": "🤖 ਐਗਰੀਬੋਟ ਏਆਈ ਚੈਟ",
+    "subtitle": "ਖੇਤੀਬਾੜੀ ਬਾਰੇ ਕੋਈ ਵੀ ਸਵਾਲ ਪੁੱਛੋ — ਜੈਮਿਨੀ ਏਆਈ ਦੁਆਰਾ ਸੰਚਾਲਿਤ",
+    "onlineStatus": "ਔਨਲਾਈਨ — ਜੈਮਿਨੀ ਏਆਈ ਦੁਆਰਾ ਸੰਚਾਲਿਤ",
+    "inputPlaceholder": "ਫ਼ਸਲ, ਕੀੜੇ-ਮਕੌੜੇ ਜਾਂ ਖਾਦਾਂ ਬਾਰੇ ਪੁੱਛੋ...",
+    "send": "ਭੇਜੋ",
+    "retry": "🔄 ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ",
+    "micTooltip": "ਬੋਲ ਕੇ ਸਵਾਲ ਪੁੱਛੋ",
+    "speakTooltip": "ਜਵਾਬ ਸੁਣੋ",
+    "suggestions": "ਤੇਜ਼ ਸੁਝਾਅ",
+    "listeningPrompt": "🎤 ਸੁਣ ਰਿਹਾ ਹੈ... ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਸਵਾਲ ਬੋਲੋ।"
+  },
+  "marketplace": {
+    "title": "🛒 ਕਿਸਾਨ ਮਾਰਕੀਟਪਲੇਸ",
+    "subtitle": "ਫ਼ਸਲਾਂ, ਬੀਜ, ਔਜ਼ਾਰ ਅਤੇ ਖਾਦਾਂ ਖਰੀਦੋ ਅਤੇ ਵੇਚੋ",
+    "searchPlaceholder": "ਉਤਪਾਦ ਖੋਜੋ...",
+    "allCategories": "ਸਾਰੀਆਂ ਸ਼੍ਰੇਣੀਆਂ",
+    "price": "ਕੀਮਤ",
+    "seller": "ਵੇਚਣ ਵਾਲਾ",
+    "location": "ਸਥਾਨ",
+    "buyNow": "ਹੁਣੇ ਖਰੀਦੋ",
+    "contactSeller": "ਸੰਪਰਕ ਕਰੋ"
+  },
+  "schemes": {
+    "title": "🏛️ ਸਰਕਾਰੀ ਖੇਤੀਬਾੜੀ ਸਕੀਮਾਂ",
+    "subtitle": "ਸਰਕਾਰੀ ਸਬਸਿਡੀਆਂ ਅਤੇ ਫ਼ਸਲ ਬੀਮਾ ਯੋਜਨਾਵਾਂ ਦੇਖੋ",
+    "eligibility": "ਯੋਗਤਾ",
+    "benefits": "ਮੁੱਖ ਲਾਭ",
+    "documents": "ਲੋੜੀਂਦੇ ਦਸਤਾਵੇਜ਼",
+    "applyNow": "ਅਪਲਾਈ ਕਰੋ"
+  },
+  "storage": {
+    "title": "🏭 ਕੋਲਡ ਸਟੋਰੇਜ ਅਤੇ ਗੋਦਾਮ",
+    "subtitle": "ਨੇੜਲੇ ਸਟੋਰੇਜ ਕੇਂਦਰ ਲੱਭੋ",
+    "capacity": "ਕੁੱਲ ਸਮਰੱਥਾ",
+    "available": "ਉਪਲਬਧ ਜਗ੍ਹਾ",
+    "pricePerTon": "ਕਿਰਾਇਆ ਪ੍ਰਤੀ ਟਨ / ਮਹੀਨਾ",
+    "bookStorage": "ਸਟੋਰੇਜ ਬੁੱਕ ਕਰੋ"
+  },
+  "labour": {
+    "title": "👷 ਮਜ਼ਦੂਰ ਅਤੇ ਮਸ਼ੀਨਰੀ ਕਿਰਾਏ 'ਤੇ ਲਵੋ",
+    "subtitle": "ਖੇਤੀ ਮਜ਼ਦੂਰ ਅਤੇ ਔਜ਼ਾਰ ਬੁੱਕ ਕਰੋ",
+    "rate": "ਰੋਜ਼ਾਨਾ / ਪ੍ਰਤੀ ਘੰਟਾ ਰੇਟ",
+    "contactLabour": "ਹੁਣੇ ਬੁੱਕ ਕਰੋ"
+  },
+  "loans": {
+    "title": "💰 ਕਿਸਾਨ ਕਰਜ਼ਾ ਸਹਾਇਕ",
+    "subtitle": "ਕਿਸਾਨ ਕ੍ਰੈਡਿਟ ਕਾਰਡ (KCC) ਅਤੇ ਫ਼ਸਲੀ ਕਰਜ਼ੇ ਦੀ ਜਾਂਚ ਕਰੋ",
+    "interestRate": "ਵਿਆਜ ਦਰ",
+    "maxLoan": "ਵੱਧ ਤੋਂ ਵੱਧ ਕਰਜ਼ਾ ਰਕਮ",
+    "tenure": "ਮਿਆਦ",
+    "checkEligibility": "ਯੋਗਤਾ ਜਾਂਚੋ"
+  },
+  "knowledge": {
+    "title": "📚 ਖੇਤੀਬਾੜੀ ਗਿਆਨ ਕੇਂਦਰ",
+    "subtitle": "ਫ਼ਸਲ ਪ੍ਰਬੰਧਨ ਅਤੇ ਜੈਵਿਕ ਖੇਤੀ ਦੀ ਜਾਣਕਾਰੀ",
+    "readArticle": "ਪੂਰਾ ਲੇਖ ਪੜ੍ਹੋ"
+  },
+  "profile": {
+    "title": "👤 ਕਿਸਾਨ ਪ੍ਰੋਫਾਈਲ",
+    "subtitle": "ਆਪਣੀ ਪ੍ਰੋਫਾਈਲ ਅਤੇ ਭਾਸ਼ਾ ਪਸੰਦ ਸੰਭਾਲੋ",
+    "username": "ਪੂਰਾ ਨਾਮ",
+    "email": "ਈਮੇਲ ਪਤਾ",
+    "phone": "ਫ਼ੋਨ ਨੰਬਰ",
+    "state": "ਰਾਜ",
+    "city": "ਜ਼ਿਲ੍ਹਾ / ਸ਼ਹਿਰ",
+    "village": "ਪਿੰਡ",
+    "landSize": "ਜ਼ਮੀਨ (ਏਕੜ)",
+    "primaryCrop": "ਮੁੱਖ ਫ਼ਸਲ",
+    "serviceProvider": "ਸੇਵਾ ਪ੍ਰਦਾਤਾ ਸਥਿਤੀ",
+    "preferredLanguage": "ਪਸੰਦੀਦਾ ਭਾਸ਼ਾ",
+    "updateProfile": "ਪ੍ਰੋਫਾਈਲ ਅਪਡੇਟ ਕਰੋ"
+  }
+}

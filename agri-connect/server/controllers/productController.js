@@ -10,11 +10,24 @@ const getProducts = async (req, res) => {
     let query = {};
     
     if (category && category !== 'All') {
-      query.category = category;
+      query['category.en'] = category;
     }
     
     if (search) {
-      query.title = { $regex: search, $options: 'i' };
+      const searchRegex = new RegExp(search, 'i');
+      query.$or = [
+        { 'title.en': searchRegex },
+        { 'title.hi': searchRegex },
+        { 'title.pa': searchRegex },
+        { 'title.mr': searchRegex },
+        { 'title.gu': searchRegex },
+        { 'title.bn': searchRegex },
+        { 'title.ta': searchRegex },
+        { 'title.te': searchRegex },
+        { 'title.kn': searchRegex },
+        { 'title.ml': searchRegex },
+        { 'title.or': searchRegex }
+      ];
     }
 
     const products = await Product.find(query).sort({ createdAt: -1 });

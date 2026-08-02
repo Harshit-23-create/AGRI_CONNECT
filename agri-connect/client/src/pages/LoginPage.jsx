@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 
 const LoginPage = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -17,11 +19,11 @@ const LoginPage = () => {
     setLoading(true);
     try {
       await login(email, password);
-      toast.success('Welcome back! 🌾');
+      toast.success(t('common.success'));
       navigate('/dashboard');
     } catch (err) {
       console.error('Login Error:', err);
-      const msg = err?.response?.data?.message || err.message || 'Login failed. Please check your credentials.';
+      const msg = err?.response?.data?.message || err.message || t('common.error');
       setError(msg);
     } finally {
       setLoading(false);
@@ -33,15 +35,15 @@ const LoginPage = () => {
       <div className="auth-card animate-in">
         <div className="auth-logo">
           <span className="logo-icon">🌾</span>
-          <h1>Welcome Back</h1>
-          <p>Sign in to your AgriConnect account</p>
+          <h1>{t('nav.login')}</h1>
+          <p>{t('dashboard.welcome')} {t('common.appName')}</p>
         </div>
 
         {error && <div className="alert alert-error">{error}</div>}
 
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="email">Email Address</label>
+            <label htmlFor="email">{t('profile.email')}</label>
             <input
               id="email"
               type="email"
@@ -59,7 +61,7 @@ const LoginPage = () => {
               id="password"
               type="password"
               className="form-input"
-              placeholder="Enter your password"
+              placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -71,16 +73,12 @@ const LoginPage = () => {
             className="btn btn-primary btn-full"
             disabled={loading}
           >
-            {loading ? (
-              <><span className="loader-spinner" style={{ width: 18, height: 18, borderWidth: 2 }} /> Signing in...</>
-            ) : (
-              '🔑 Sign In'
-            )}
+            {loading ? t('common.loading') : `🔑 ${t('nav.login')}`}
           </button>
         </form>
 
         <p className="auth-switch mt-16">
-          Don't have an account? <Link to="/register">Create one</Link>
+          <Link to="/register">{t('nav.register')}</Link>
         </p>
       </div>
     </div>

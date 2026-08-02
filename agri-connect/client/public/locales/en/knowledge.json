@@ -1,0 +1,15 @@
+{
+  "title": "📚 Agricultural Knowledge Hub",
+  "subtitle": "Learn modern farming techniques, best practices, and scientific approaches to boost your yield",
+  "searchPlaceholder": "🔍 Search articles & guides...",
+  "readArticle": "Read Full Guide",
+  "closeArticle": "Close Article",
+  "bottomPromptTitle": "Have a specific farming question?",
+  "bottomPromptDesc": "Ask AgriBot — our AI assistant powered by Google Gemini — for instant personalized answers in your language",
+  "openChatBtn": "Open AgriBot Chat →",
+  "catAll": "All Categories",
+  "catSoil": "Soil Management",
+  "catPest": "Pest & Disease Control",
+  "catWater": "Water Management",
+  "noArticles": "No articles found"
+}

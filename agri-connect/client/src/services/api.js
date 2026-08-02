@@ -3,6 +3,7 @@ import axios from 'axios';
 const API = axios.create({
   baseURL: 'http://localhost:5000/api',
   withCredentials: true,
+  timeout: 30000,
 });
 
 // Auth
@@ -20,7 +21,8 @@ export const getWeather = (state, city, village = '') =>
   API.get(`/weather?state=${encodeURIComponent(state)}&city=${encodeURIComponent(city)}&village=${encodeURIComponent(village)}`);
 
 // Chat
-export const sendChatMessage = (message) => API.post('/chat', { message });
+export const sendChatMessage = (message, language = 'en') =>
+  API.post('/chat', { message, language }, { timeout: 25000 });
 
 // Crop
 export const getCropRecommendation = (data) => API.post('/crop/recommend', data);

@@ -1,0 +1,12 @@
+{
+  "title": "🤖 AgriBot AI Chat",
+  "subtitle": "Ask anything about farming — powered by Gemini & Agricultural AI",
+  "onlineStatus": "Online — Powered by Gemini AI",
+  "inputPlaceholder": "Ask AgriBot about crops, pests, fertilizers... (Enter to send, Shift+Enter for newline)",
+  "send": "Send",
+  "retry": "🔄 Retry Request",
+  "micTooltip": "Click to speak in your language",
+  "speakTooltip": "Listen to AgriBot's response",
+  "suggestions": "Quick Questions",
+  "listeningPrompt": "🎤 Listening... Please speak your farming question clearly."
+}

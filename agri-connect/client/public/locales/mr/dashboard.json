@@ -1,0 +1,15 @@
+{
+  "welcome": "परत स्वागत आहे",
+  "subtitle": "रिअल-टाइम पीक, हवामान आणि बाजार अंतर्दृष्टीसाठी तुमचा एकीकृत स्मार्ट कृषी डॅशबोर्ड.",
+  "quickActions": "जलद क्रिया",
+  "weatherWidget": "हवामान अंदाज",
+  "cropAdvisor": "माती आणि पीक सल्लागार",
+  "aiAssistant": "AgriBot AI सहाय्यक",
+  "schemes": "सरकारी योजना",
+  "marketPrices": "बाजारभाव",
+  "recentUpdates": "अलीकडील कृषी अद्यतने",
+  "statFarmers": "शेतकऱ्यांनी नोंदणी केली",
+  "statStates": "राज्ये समाविष्ट",
+  "statAccuracy": "पीक अचूकता",
+  "statAvailability": "AI उपलब्धता"
+}

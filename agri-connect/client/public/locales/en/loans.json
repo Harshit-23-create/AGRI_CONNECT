@@ -1,0 +1,22 @@
+{
+  "title": "💰 Kisan Credit & Loan Assistant",
+  "subtitle": "Check eligibility for crop loans, tractor financing, and Kisan Credit Card (KCC)",
+  "interestRate": "Interest Rate",
+  "maxLoan": "Maximum Loan Amount",
+  "tenure": "Tenure",
+  "checkEligibility": "Check Loan Eligibility",
+  "stepTitle": "📋 How to Apply — Step by Step",
+  "step1": "Gather Land & Identity Documents",
+  "step2": "Approach Your Local Bank Branch",
+  "step3": "Submit Form & Inspection Verification",
+  "kccTitle": "Kisan Credit Card (KCC)",
+  "kccDesc": "Short-term crop production, post-harvest expenses, and allied farming activities.",
+  "kccBank": "All Nationalized Banks / Co-op Banks",
+  "kccRate": "4% (with interest subvention)",
+  "kccAmt": "Up to ₹3 Lakh (no collateral)",
+  "termLoanTitle": "Agricultural Term Loan",
+  "termLoanDesc": "Purchase of land, farm equipment, irrigation systems, and greenhouses.",
+  "termLoanBank": "SBI, PNB, Bank of Baroda, NABARD",
+  "termLoanRate": "8.5–11% per annum",
+  "termLoanAmt": "Up to ₹25 Lakh (with land collateral)"
+}

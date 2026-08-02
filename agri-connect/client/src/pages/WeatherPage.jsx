@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { getWeather } from '../services/api';
 import toast from 'react-hot-toast';
 
@@ -36,6 +37,7 @@ const getDayName = (timestamp) => {
 };
 
 const WeatherPage = () => {
+  const { t } = useTranslation(['weather', 'common']);
   const [state, setState] = useState('');
   const [city, setCity] = useState('');
   const [village, setVillage] = useState('');
@@ -47,7 +49,7 @@ const WeatherPage = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    if (!state || !city) { toast.error('Please select state and city'); return; }
+    if (!state || !city) { toast.error(t('weather:selectLocation')); return; }
     setLoading(true);
     setError('');
     setWeather(null);
@@ -55,13 +57,12 @@ const WeatherPage = () => {
       const { data } = await getWeather(state, city, village);
       setWeather(data);
     } catch (err) {
-      setError(err?.response?.data?.error || 'Failed to fetch weather data');
+      setError(err?.response?.data?.error || t('common:error'));
     } finally {
       setLoading(false);
     }
   };
 
-  // Get 5 unique forecast days (noon readings)
   const dailyForecast = weather?.forecast?.list
     ? weather.forecast.list
         .filter((item) => item.dt_txt.includes('12:00:00'))
@@ -71,8 +72,8 @@ const WeatherPage = () => {
   return (
     <div>
       <div className="page-header">
-        <h1>🌤️ Weather Intelligence</h1>
-        <p>Real-time weather conditions and 5-day forecasts for your farm location</p>
+        <h1>{t('weather:title')}</h1>
+        <p>{t('weather:subtitle')}</p>
       </div>
 
       {/* Search Form */}
@@ -80,32 +81,32 @@ const WeatherPage = () => {
         <form onSubmit={handleSearch} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
             <div className="form-group">
-              <label>State</label>
+              <label>{t('weather:state')}</label>
               <select className="form-select" value={state} onChange={(e) => { setState(e.target.value); setCity(''); }}>
-                <option value="">Select State</option>
+                <option value="">{t('weather:selectLocation')}</option>
                 {STATES_DATA.map((s) => <option key={s.name} value={s.name}>{s.name}</option>)}
               </select>
             </div>
             <div className="form-group">
-              <label>City / District</label>
+              <label>{t('weather:city')}</label>
               <select className="form-select" value={city} onChange={(e) => setCity(e.target.value)} disabled={!state}>
-                <option value="">Select City</option>
+                <option value="">{t('weather:city')}</option>
                 {cities.map((c) => <option key={c} value={c}>{c}</option>)}
               </select>
             </div>
           </div>
           <div className="form-group">
-            <label>Village / Area (optional)</label>
+            <label>{t('weather:village')}</label>
             <input
               type="text"
               className="form-input"
-              placeholder="Enter village or area name"
+              placeholder={t('weather:village')}
               value={village}
               onChange={(e) => setVillage(e.target.value)}
             />
           </div>
           <button type="submit" className="btn btn-primary" disabled={loading}>
-            {loading ? 'Fetching weather...' : '🔍 Get Weather'}
+            {loading ? t('common:loading') : `🔍 ${t('common:search')}`}
           </button>
         </form>
       </div>
@@ -129,15 +130,15 @@ const WeatherPage = () => {
             <div className="weather-details">
               <div className="weather-detail-item">
                 <div className="val">💧 {weather.current.main.humidity}%</div>
-                <div className="lbl">Humidity</div>
+                <div className="lbl">{t('weather:humidity')}</div>
               </div>
               <div className="weather-detail-item">
                 <div className="val">🌬️ {Math.round(weather.current.wind.speed * 3.6)} km/h</div>
-                <div className="lbl">Wind Speed</div>
+                <div className="lbl">{t('weather:windSpeed')}</div>
               </div>
               <div className="weather-detail-item">
                 <div className="val">🌡️ {weather.current.main.feels_like}°C</div>
-                <div className="lbl">Feels Like</div>
+                <div className="lbl">{t('weather:currentTemp')}</div>
               </div>
             </div>
           </div>
@@ -145,7 +146,7 @@ const WeatherPage = () => {
           {/* 5-Day Forecast */}
           {dailyForecast.length > 0 && (
             <>
-              <h3 style={{ marginBottom: 12, color: 'var(--text-white)' }}>📅 5-Day Forecast</h3>
+              <h3 style={{ marginBottom: 12, color: 'var(--text-white)' }}>📅 {t('weather:rainfall')}</h3>
               <div className="forecast-grid">
                 {dailyForecast.map((item, i) => (
                   <div key={i} className="forecast-card">
@@ -161,14 +162,14 @@ const WeatherPage = () => {
 
           {/* Farming Advisory */}
           <div className="card mt-24">
-            <h3 style={{ color: 'var(--text-white)', marginBottom: 12 }}>🌾 Farming Advisory</h3>
+            <h3 style={{ color: 'var(--text-white)', marginBottom: 12 }}>🌾 {t('weather:farmingAdvice')}</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               {weather.current.main.humidity > 80 && (
                 <div className="info-item">
                   <div className="info-item-icon">⚠️</div>
                   <div className="info-item-text">
-                    <h4>High Humidity Alert</h4>
-                    <p>Humidity above 80% increases fungal disease risk. Consider fungicide application on vulnerable crops.</p>
+                    <h4>{t('weather:humidityAlertTitle')}</h4>
+                    <p>{t('weather:humidityAlertDesc')}</p>
                   </div>
                 </div>
               )}
@@ -176,25 +177,16 @@ const WeatherPage = () => {
                 <div className="info-item">
                   <div className="info-item-icon">🌡️</div>
                   <div className="info-item-text">
-                    <h4>Heat Stress Warning</h4>
-                    <p>High temperatures may stress crops. Irrigate early morning or evening and provide shade for seedlings.</p>
-                  </div>
-                </div>
-              )}
-              {weather.current.wind.speed > 10 && (
-                <div className="info-item">
-                  <div className="info-item-icon">🌬️</div>
-                  <div className="info-item-text">
-                    <h4>High Wind Advisory</h4>
-                    <p>Strong winds can damage standing crops. Check and reinforce trellises and support structures.</p>
+                    <h4>{t('weather:heatStressTitle')}</h4>
+                    <p>{t('weather:heatStressDesc')}</p>
                   </div>
                 </div>
               )}
               <div className="info-item">
                 <div className="info-item-icon">💧</div>
                 <div className="info-item-text">
-                  <h4>Irrigation Guidance</h4>
-                  <p>Current conditions suggest {weather.current.main.humidity < 50 ? 'more frequent irrigation is recommended.' : 'standard irrigation schedule is appropriate.'}</p>
+                  <h4>{t('weather:irrigationTitle')}</h4>
+                  <p>{t('weather:irrigationDesc')}</p>
                 </div>
               </div>
             </div>

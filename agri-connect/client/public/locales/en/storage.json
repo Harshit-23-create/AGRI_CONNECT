@@ -1,0 +1,17 @@
+{
+  "title": "🏭 Cold Storage & Warehouses",
+  "subtitle": "Find verified storage units near your farm to prevent post-harvest loss",
+  "capacity": "Total Capacity",
+  "available": "Available Space",
+  "pricePerTon": "Price per Ton / Month",
+  "bookStorage": "Book Storage Space",
+  "storageTypesHeader": "📦 Storage Facilities & Warehousing",
+  "coldStorageTitle": "Cold Storage Facility",
+  "coldStorageDesc": "Maintain freshness of perishables like fruits, vegetables, dairy, and flowers at controlled temperatures (2–8°C).",
+  "siloTitle": "Grain Silos",
+  "siloDesc": "Cylindrical towers ideal for bulk storage of dry grains like wheat, rice, maize, and pulses at optimum moisture.",
+  "warehouseTitle": "Warehouse Storage",
+  "warehouseDesc": "General-purpose storage for packaged goods, seeds, fertilizers, and equipment with loading/unloading facilities.",
+  "processingTitle": "⚙️ Value Addition & Processing",
+  "govtSupportTitle": "🏛️ Government Storage Schemes"
+}

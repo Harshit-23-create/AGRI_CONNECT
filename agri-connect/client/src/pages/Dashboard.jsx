@@ -1,41 +1,44 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-
-const features = [
-  { path: '/weather', icon: '🌤️', title: 'Weather', desc: 'Real-time forecasts for your location' },
-  { path: '/crop', icon: '🌱', title: 'Crop Advisor', desc: 'AI crop recommendations by soil data' },
-  { path: '/chat', icon: '🤖', title: 'AgriBot AI', desc: 'Get instant farming guidance' },
-  { path: '/marketplace', icon: '🛒', title: 'Marketplace', desc: 'Buy & sell agricultural produce' },
-  { path: '/schemes', icon: '🏛️', title: 'Gov. Schemes', desc: 'Explore subsidies and welfare plans' },
-  { path: '/storage', icon: '🏭', title: 'Storage', desc: 'Storage and processing solutions' },
-  { path: '/labour', icon: '👷', title: 'Labour & Tools', desc: 'Hire workers and rent equipment' },
-  { path: '/loans', icon: '💰', title: 'Loan Assistant', desc: 'Discover agricultural loan options' },
-  { path: '/knowledge', icon: '📚', title: 'Knowledge Hub', desc: 'Modern farming tips & techniques' },
-];
-
-const stats = [
-  { icon: '🌾', value: '10K+', label: 'Farmers Registered' },
-  { icon: '🌍', value: '28', label: 'States Covered' },
-  { icon: '🤖', value: '95%', label: 'Crop Accuracy' },
-  { icon: '⚡', value: '24/7', label: 'AI Availability' },
-];
+import { useTranslation } from 'react-i18next';
+import { SUPPORTED_LANGUAGES } from '../i18n';
 
 const Dashboard = () => {
   const { user } = useAuth();
-  const hour = new Date().getHours();
-  const greeting = hour < 12 ? 'Good Morning' : hour < 17 ? 'Good Afternoon' : 'Good Evening';
+  const { t, i18n } = useTranslation(['dashboard', 'common', 'weather', 'crop', 'chatbot', 'marketplace', 'schemes', 'storage', 'labour', 'loans', 'knowledge', 'auth']);
+
+  const activeLang = SUPPORTED_LANGUAGES.find((l) => l.code === i18n.language) || SUPPORTED_LANGUAGES[0];
+
+  const features = [
+    { path: '/weather', icon: '🌤️', title: t('weather:title'), desc: t('weather:subtitle') },
+    { path: '/crop', icon: '🌱', title: t('crop:title'), desc: t('crop:subtitle') },
+    { path: '/chat', icon: '🤖', title: t('chatbot:title'), desc: t('chatbot:subtitle') },
+    { path: '/marketplace', icon: '🛒', title: t('marketplace:title'), desc: t('marketplace:subtitle') },
+    { path: '/schemes', icon: '🏛️', title: t('schemes:title'), desc: t('schemes:subtitle') },
+    { path: '/storage', icon: '🏭', title: t('storage:title'), desc: t('storage:subtitle') },
+    { path: '/labour', icon: '👷', title: t('labour:title'), desc: t('labour:subtitle') },
+    { path: '/loans', icon: '💰', title: t('loans:title'), desc: t('loans:subtitle') },
+    { path: '/knowledge', icon: '📚', title: t('knowledge:title'), desc: t('knowledge:subtitle') },
+  ];
+
+  const stats = [
+    { icon: '🌾', value: '10K+', label: t('dashboard:statFarmers') },
+    { icon: '🌍', value: '28', label: t('dashboard:statStates') },
+    { icon: '🤖', value: '95%', label: t('dashboard:statAccuracy') },
+    { icon: '⚡', value: '24/7', label: t('dashboard:statAvailability') },
+  ];
 
   return (
     <div>
       {/* Welcome Banner */}
       <div className="dashboard-welcome animate-in">
-        <h1>{greeting}, {user?.username?.split(' ')[0]}! 👋</h1>
-        <p>Here's your AgriConnect dashboard. Explore all the tools available to grow your farm.</p>
+        <h1>{t('dashboard:welcome')}, {user?.username?.split(' ')[0]}! 👋</h1>
+        <p>{t('dashboard:subtitle')}</p>
         <div style={{ display: 'flex', gap: 8, marginTop: 16, flexWrap: 'wrap' }}>
           <span className="badge badge-green">
-            {user?.serviceProvider === 'Yes' ? '✅ Service Provider' : '🌾 Farmer'}
+            {user?.serviceProvider === 'Yes' ? t('auth:providerRole') : t('auth:farmerRole')}
           </span>
-          <span className="badge badge-gold">🗣️ {user?.language?.toUpperCase()}</span>
+          <span className="badge badge-gold">🗣️ {activeLang.flag} {activeLang.nativeName}</span>
         </div>
       </div>
 
@@ -55,10 +58,10 @@ const Dashboard = () => {
       {/* Feature Grid */}
       <div className="page-header">
         <h2 style={{ fontSize: '1.4rem', background: 'linear-gradient(135deg, var(--text-white), var(--primary-light))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-          All Features
+          {t('dashboard:quickActions')}
         </h2>
         <p className="text-muted" style={{ fontSize: '0.88rem', marginTop: 4 }}>
-          Click any card to get started
+          {t('dashboard:subtitle')}
         </p>
       </div>
 
@@ -69,7 +72,7 @@ const Dashboard = () => {
             <h3>{f.title}</h3>
             <p>{f.desc}</p>
             <span style={{ color: 'var(--primary-light)', fontSize: '0.82rem', fontWeight: 600, marginTop: 'auto' }}>
-              Open →
+              →
             </span>
           </Link>
         ))}

@@ -1,0 +1,15 @@
+{
+  "welcome": "Welcome back",
+  "subtitle": "Your unified smart agriculture dashboard for real-time crop, weather, and market insights.",
+  "quickActions": "Quick Actions",
+  "weatherWidget": "Weather Forecast",
+  "cropAdvisor": "Soil & Crop Advisor",
+  "aiAssistant": "AgriBot AI Assistant",
+  "schemes": "Government Schemes",
+  "marketPrices": "Market Prices",
+  "recentUpdates": "Recent Agricultural Updates",
+  "statFarmers": "Farmers Registered",
+  "statStates": "States Covered",
+  "statAccuracy": "Crop Accuracy",
+  "statAvailability": "AI Availability"
+}

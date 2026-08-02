@@ -1,55 +1,57 @@
 import { Link } from 'react-router-dom';
-
-const features = [
-  { icon: '🌤️', title: 'Weather Intelligence', desc: 'Real-time forecasts and 5-day predictions tailored for your farm location.' },
-  { icon: '🌱', title: 'Crop Advisor', desc: 'AI-powered crop recommendations based on soil nutrients and climate data.' },
-  { icon: '🤖', title: 'AgriBot AI', desc: 'Gemini-powered chatbot giving instant expert farming guidance 24/7.' },
-  { icon: '🛒', title: 'Marketplace', desc: 'Connect directly with buyers and sellers to get the best prices for produce.' },
-  { icon: '🏛️', title: 'Gov. Schemes', desc: 'Explore all government subsidies, loans, and agricultural schemes.' },
-  { icon: '📚', title: 'Knowledge Hub', desc: 'Learn modern farming techniques, pest control, and best practices.' },
-];
+import { useTranslation } from 'react-i18next';
 
 const LandingPage = () => {
+  const { t } = useTranslation('landing');
+
+  const features = [
+    { icon: '🌤️', title: t('featWeatherTitle'), desc: t('featWeatherDesc') },
+    { icon: '🌱', title: t('featCropTitle'), desc: t('featCropDesc') },
+    { icon: '🤖', title: t('featAiTitle'), desc: t('featAiDesc') },
+    { icon: '🛒', title: t('featMarketTitle'), desc: t('featMarketDesc') },
+    { icon: '🏛️', title: t('featSchemesTitle'), desc: t('featSchemesDesc') },
+    { icon: '📚', title: t('featKnowledgeTitle'), desc: t('featKnowledgeDesc') },
+  ];
+
   return (
     <div>
       {/* Hero */}
       <section className="landing-hero">
         <div className="hero-content">
           <div className="hero-badge">
-            🏆 Smart India Hackathon 2024 Project
+            {t('heroBadge')}
           </div>
           <h1 className="hero-title">
-            Empowering India's<br />
-            <span className="highlight">Farmers with AI</span>
+            {t('heroTitleLine1')}<br />
+            <span className="highlight">{t('heroTitleLine2')}</span>
           </h1>
           <p className="hero-subtitle">
-            A one-stop digital platform connecting farmers to weather intelligence,
-            AI-powered crop recommendations, government schemes, and marketplace — all in one place.
+            {t('heroSubtitle')}
           </p>
           <div className="hero-cta">
             <Link to="/register" className="btn btn-primary btn-lg">
-              🚀 Get Started Free
+              {t('getStarted')}
             </Link>
             <Link to="/login" className="btn btn-outline btn-lg">
-              Sign In
+              {t('signIn')}
             </Link>
           </div>
           <div className="hero-stats">
             <div className="hero-stat">
               <div className="num">10K+</div>
-              <div className="lbl">Farmers Served</div>
+              <div className="lbl">{t('statFarmers')}</div>
             </div>
             <div className="hero-stat">
               <div className="num">28</div>
-              <div className="lbl">States Covered</div>
+              <div className="lbl">{t('statStates')}</div>
             </div>
             <div className="hero-stat">
               <div className="num">95%</div>
-              <div className="lbl">Crop Accuracy</div>
+              <div className="lbl">{t('statAccuracy')}</div>
             </div>
             <div className="hero-stat">
               <div className="num">24/7</div>
-              <div className="lbl">AI Support</div>
+              <div className="lbl">{t('statSupport')}</div>
             </div>
           </div>
         </div>
@@ -57,9 +59,9 @@ const LandingPage = () => {
 
       {/* Features */}
       <section className="features-section">
-        <h2 className="features-title">Everything a Farmer Needs</h2>
+        <h2 className="features-title">{t('featuresTitle')}</h2>
         <p className="features-subtitle">
-          Powered by cutting-edge AI and real-time data to transform your farm's productivity
+          {t('featuresSubtitle')}
         </p>
         <div className="grid-3">
           {features.map((f, i) => (
@@ -90,13 +92,13 @@ const LandingPage = () => {
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
         }}>
-          Ready to Transform Your Farm?
+          {t('ctaTitle')}
         </h2>
         <p style={{ color: 'var(--text-muted)', marginBottom: '32px', fontSize: '1rem' }}>
-          Join thousands of farmers already using AgriConnect
+          {t('ctaSubtitle')}
         </p>
         <Link to="/register" className="btn btn-accent btn-lg">
-          🌾 Start for Free Today
+          {t('ctaBtn')}
         </Link>
       </section>
     </div>

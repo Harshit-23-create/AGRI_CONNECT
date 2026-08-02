@@ -2,27 +2,25 @@ const mongoose = require('mongoose');
 
 const articleSchema = new mongoose.Schema({
   title: {
-    type: String,
+    type: Object,
     required: true,
-    trim: true
   },
   content: {
-    type: String,
+    type: Object,
     required: true
   },
   category: {
-    type: String,
+    type: Object,
     required: true,
-    enum: ['Soil Management', 'Pest & Disease Control', 'Water Management', 'Modern Farming', 'Climate-Smart Farming']
   },
   readTime: {
-    type: String,
-    default: '5 min read'
+    type: Object,
+    default: { en: '5 min read' }
   },
   createdAt: {
     type: Date,
     default: Date.now
   }
-});
+}, { strict: false });
 
 module.exports = mongoose.model('Article', articleSchema);

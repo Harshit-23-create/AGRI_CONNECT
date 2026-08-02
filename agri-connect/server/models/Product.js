@@ -2,21 +2,19 @@ const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
   title: {
-    type: String,
+    type: Object,
     required: true,
-    trim: true
   },
   category: {
-    type: String,
+    type: Object,
     required: true,
-    enum: ['Grains', 'Vegetables', 'Seeds', 'Fertilizers', 'Pesticides', 'Equipment']
   },
   price: {
-    type: String,
+    type: Object,
     required: true
   },
   quantity: {
-    type: String,
+    type: Object,
     required: true
   },
   rating: {
@@ -24,8 +22,8 @@ const productSchema = new mongoose.Schema({
     default: 4.5
   },
   seller: {
-    name: { type: String, required: true },
-    location: { type: String, required: true },
+    name: { type: Object, required: true },
+    location: { type: Object, required: true },
     phone: { type: String, required: true },
     email: { type: String }
   },
@@ -33,6 +31,6 @@ const productSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-});
+}, { strict: false });
 
 module.exports = mongoose.model('Product', productSchema);
