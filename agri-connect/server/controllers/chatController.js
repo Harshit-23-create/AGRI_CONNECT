@@ -21,6 +21,19 @@ const getGeminiClient = () => {
     return null;
   }
   console.log('[CHAT LOG] Gemini client initialized successfully.');
+  
+  // Debug: List available models asynchronously
+  axios.get(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`)
+    .then(response => {
+      if (response.data && response.data.models) {
+        const modelNames = response.data.models.map(m => m.name).join(', ');
+        console.log(`[CHAT LOG] Available models for this key: ${modelNames}`);
+      }
+    })
+    .catch(err => {
+      console.error(`[CHAT LOG] Failed to list models: ${err.message}`);
+    });
+
   return new GoogleGenAI({ apiKey });
 };
 
