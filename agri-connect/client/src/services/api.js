@@ -56,8 +56,8 @@ export const getWeather = (state, city, village = '') =>
   API.get(`/weather?state=${encodeURIComponent(state)}&city=${encodeURIComponent(city)}&village=${encodeURIComponent(village)}`);
 
 // Chat
-export const sendChatMessage = (message, language = 'en') =>
-  API.post('/chat', { message, language }, { timeout: 60000 });
+export const sendChatMessage = (message, language = 'en', history = []) =>
+  API.post('/chat', { message, language, history }, { timeout: 60000 });
 
 // Crop
 export const getCropRecommendation = (data) => API.post('/crop/recommend', data);

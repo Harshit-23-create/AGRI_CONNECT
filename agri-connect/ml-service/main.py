@@ -1,9 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from models.schemas import SoilData, ChatRequest
+from models.schemas import SoilData
 from services.crop_service import load_models, predict_crop
-from services.chat_service import generate_agricultural_response
 from utils.logger import logger
 
 @asynccontextmanager
@@ -48,12 +47,3 @@ async def get_crop_recommendation(data: SoilData):
         logger.error(f"Prediction failed: {e}")
         raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
 
-@app.post("/chat")
-async def chat_with_agribot(data: ChatRequest):
-    logger.info(f"Received AI Chat query: {data.message[:50]}... in {data.language}")
-    reply = generate_agricultural_response(data.message.strip(), data.language)
-    return {
-        "reply": reply,
-        "provider": "FastAPI Agricultural AI",
-        "service": "agriconnect-ml"
-    }

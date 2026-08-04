@@ -8,7 +8,3 @@ class SoilData(BaseModel):
     humidity: float = Field(..., ge=0, le=100, description="Relative humidity in percentage")
     ph: float = Field(..., ge=0, le=14, description="Soil pH value")
     rainfall: float = Field(..., ge=0, description="Rainfall in mm")
-
-class ChatRequest(BaseModel):
-    message: str = Field(..., min_length=1, description="The chat message")
-    language: str = Field(default="en", description="Target language for response")

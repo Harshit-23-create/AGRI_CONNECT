@@ -140,7 +140,12 @@ const ChatPage = () => {
     setLoading(true);
 
     try {
-      const response = await sendChatMessage(msg, i18n.language);
+      // Format history (excluding welcome message and errors)
+      const history = messages
+        .filter(m => m.id !== 'welcome-1' && !m.isError)
+        .map(m => ({ role: m.role === 'bot' ? 'model' : 'user', text: m.text }));
+
+      const response = await sendChatMessage(msg, i18n.language, history);
       const data = response.data;
 
       console.log('[AI CHAT] Server response success:', data);
@@ -306,10 +311,13 @@ const ChatPage = () => {
             <div className="chat-message bot">
               <div className="msg-avatar bot">🤖</div>
               <div className="msg-bubble bot">
-                <div className="typing-indicator" aria-label="AgriBot is typing">
-                  <div className="typing-dot" />
-                  <div className="typing-dot" />
-                  <div className="typing-dot" />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div className="typing-indicator" aria-label="AgriBot is typing">
+                    <div className="typing-dot" />
+                    <div className="typing-dot" />
+                    <div className="typing-dot" />
+                  </div>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Generating AI response...</span>
                 </div>
               </div>
             </div>

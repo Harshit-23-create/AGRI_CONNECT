@@ -47,14 +47,3 @@ def test_predict_crop_invalid_payload():
         response = client.post("/predict", json=payload)
         assert response.status_code == 422 # Pydantic validation error
 
-def test_chat_valid():
-    with TestClient(app) as client:
-        payload = {
-            "message": "What is the best fertilizer for wheat?",
-            "language": "en"
-        }
-        response = client.post("/chat", json=payload)
-        assert response.status_code == 200
-        data = response.json()
-        assert "reply" in data
-        assert "Wheat" in data["reply"]

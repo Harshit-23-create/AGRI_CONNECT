@@ -56,4 +56,23 @@ describe('AgriConnect Backend API', () => {
       expect(res.body).toHaveProperty('crop', 'Rice');
     });
   });
+
+  describe('POST /api/chat', () => {
+    it('should fail if message is missing', async () => {
+      const res = await request(app)
+        .post('/api/chat')
+        .send({ history: [] });
+      expect(res.statusCode).toEqual(400);
+      expect(res.body).toHaveProperty('error');
+    });
+
+    it('should return 503 if GEMINI_API_KEY is not configured or all attempts fail', async () => {
+      // In tests, GEMINI_API_KEY is likely not set, or we can mock it failing.
+      const res = await request(app)
+        .post('/api/chat')
+        .send({ message: 'Hello', history: [] });
+      expect(res.statusCode).toEqual(503);
+      expect(res.body).toHaveProperty('code', 'AI_SERVICE_UNAVAILABLE');
+    });
+  });
 });
