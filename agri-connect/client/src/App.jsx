@@ -1,31 +1,41 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import ProtectedRoute from './components/ProtectedRoute';
 import { useAuth } from './context/AuthContext';
 
-// Pages
-import LandingPage from './pages/LandingPage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import Dashboard from './pages/Dashboard';
-import WeatherPage from './pages/WeatherPage';
-import CropPage from './pages/CropPage';
-import ChatPage from './pages/ChatPage';
-import MarketplacePage from './pages/MarketplacePage';
-import SchemesPage from './pages/SchemesPage';
-import StoragePage from './pages/StoragePage';
-import LabourPage from './pages/LabourPage';
-import LoanPage from './pages/LoanPage';
-import KnowledgePage from './pages/KnowledgePage';
-import ProfilePage from './pages/ProfilePage';
+// Lazy loaded Pages
+const LandingPage = React.lazy(() => import('./pages/LandingPage'));
+const LoginPage = React.lazy(() => import('./pages/LoginPage'));
+const RegisterPage = React.lazy(() => import('./pages/RegisterPage'));
+const Dashboard = React.lazy(() => import('./pages/Dashboard'));
+const WeatherPage = React.lazy(() => import('./pages/WeatherPage'));
+const CropPage = React.lazy(() => import('./pages/CropPage'));
+const ChatPage = React.lazy(() => import('./pages/ChatPage'));
+const MarketplacePage = React.lazy(() => import('./pages/MarketplacePage'));
+const SchemesPage = React.lazy(() => import('./pages/SchemesPage'));
+const StoragePage = React.lazy(() => import('./pages/StoragePage'));
+const LabourPage = React.lazy(() => import('./pages/LabourPage'));
+const LoanPage = React.lazy(() => import('./pages/LoanPage'));
+const KnowledgePage = React.lazy(() => import('./pages/KnowledgePage'));
+const ProfilePage = React.lazy(() => import('./pages/ProfilePage'));
+
+// Fallback loader component
+const PageLoader = () => (
+  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', color: 'var(--primary)' }}>
+    <div className="spinner" style={{ width: '40px', height: '40px', border: '4px solid rgba(0,0,0,0.1)', borderTopColor: 'var(--primary)', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+    <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+  </div>
+);
 
 /* ─── Layout for public / auth pages (no sidebar, full-width) ─── */
 function PublicLayout({ children }) {
   return (
     <div style={{ paddingTop: 'var(--navbar-height)' }}>
-      {children}
+      <Suspense fallback={<PageLoader />}>
+        {children}
+      </Suspense>
     </div>
   );
 }
@@ -46,7 +56,9 @@ function AppLayout({ children }) {
         >
           ☰ Menu
         </button>
-        {children}
+        <Suspense fallback={<PageLoader />}>
+          {children}
+        </Suspense>
       </main>
     </div>
   );

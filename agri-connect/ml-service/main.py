@@ -176,7 +176,8 @@ def generate_agricultural_response(message: str, language: str = 'en') -> str:
 @app.post("/predict")
 async def get_crop_recommendation(data: SoilData):
     logger.info(f"Received prediction request: temp={data.temperature}, humidity={data.humidity}, rainfall={data.rainfall}")
-    time.sleep(1.0)
+    import asyncio
+    await asyncio.sleep(0.1) # Reduced artificial delay
     result = predict_crop(data)
     return result
 

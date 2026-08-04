@@ -1,4 +1,4 @@
-const { GoogleGenerativeAI } = require('@google/generative-ai');
+const { GoogleGenAI } = require('@google/genai');
 const axios = require('axios');
 
 // Map language codes to English names for Gemini system prompt
@@ -22,15 +22,15 @@ const getGeminiClient = () => {
   if (!apiKey || apiKey.trim() === '' || apiKey === 'your_gemini_api_key_here') {
     return null;
   }
-  return new GoogleGenerativeAI(apiKey);
+  return new GoogleGenAI({ apiKey });
 };
 
 /**
  * Helper to attempt generation using Google Gemini SDK with fallback models
  */
 const generateWithGemini = async (message, targetLanguage = 'en') => {
-  const genAI = getGeminiClient();
-  if (!genAI) {
+  const ai = getGeminiClient();
+  if (!ai) {
     throw new Error('GEMINI_API_KEY is not configured or invalid');
   }
 
@@ -43,19 +43,18 @@ If the user asks a question in any language or in English, ALWAYS output your fi
 If the user asks a question that is NOT related to agriculture, farming, crops, weather, schemes, or rural development, politely redirect them to farming topics in ${langName}.
 Keep your answers concise, well-formatted with markdown bullet points and emojis where appropriate, and easy to read.`;
 
-  const candidateModels = ['gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-1.5-pro'];
+  const candidateModels = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
   let lastError = null;
 
   for (const modelName of candidateModels) {
     try {
       console.log(`[CHAT CONTROLLER] Attempting Gemini model: ${modelName} in ${langName}`);
-      const model = genAI.getGenerativeModel({ model: modelName });
-      const prompt = `${systemPrompt}\n\nUser question: ${message}`;
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      const text = response.text();
-      if (text && text.trim()) {
-        return text.trim();
+      const response = await ai.models.generateContent({
+        model: modelName,
+        contents: `${systemPrompt}\n\nUser question: ${message}`
+      });
+      if (response.text && response.text.trim()) {
+        return response.text.trim();
       }
     } catch (err) {
       console.warn(`[CHAT CONTROLLER] Model ${modelName} failed: ${err.message}`);
