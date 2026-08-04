@@ -3,7 +3,7 @@ import axios from 'axios';
 const API = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
   withCredentials: true,
-  timeout: 30000,
+  timeout: 60000,
 });
 
 // Auth
@@ -22,7 +22,7 @@ export const getWeather = (state, city, village = '') =>
 
 // Chat
 export const sendChatMessage = (message, language = 'en') =>
-  API.post('/chat', { message, language }, { timeout: 25000 });
+  API.post('/chat', { message, language }, { timeout: 60000 });
 
 // Crop
 export const getCropRecommendation = (data) => API.post('/crop/recommend', data);

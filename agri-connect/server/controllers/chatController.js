@@ -77,7 +77,7 @@ const generateWithFastAPI = async (message, language = 'en') => {
   const response = await axios.post(
     chatUrl,
     { message, language },
-    { timeout: 15000, headers: { 'Content-Type': 'application/json' } }
+    { timeout: 60000, headers: { 'Content-Type': 'application/json' } }
   );
 
   if (response.data && response.data.reply) {

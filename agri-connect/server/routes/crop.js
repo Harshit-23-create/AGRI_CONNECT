@@ -18,7 +18,7 @@ router.post('/recommend', async (req, res) => {
     const response = await axios.post(
       process.env.FASTAPI_URL || 'http://127.0.0.1:8000/predict',
       { nitrogen, phosphorus, potassium, temperature, humidity, ph, rainfall },
-      { timeout: 15000 }
+      { timeout: 60000 }
     );
 
     const result = response.data;
@@ -26,7 +26,7 @@ router.post('/recommend', async (req, res) => {
   } catch (err) {
     console.error('FastAPI error:', err.message);
     res.status(503).json({
-      error: 'Crop recommendation ML service is unavailable. Please ensure the Python FastAPI service is running on port 8000.',
+      error: 'Crop recommendation ML service is starting up (this can take up to 50 seconds on free hosting). Please wait a moment and try again.',
     });
   }
 });
