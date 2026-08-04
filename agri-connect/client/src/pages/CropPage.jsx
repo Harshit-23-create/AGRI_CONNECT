@@ -23,6 +23,20 @@ const CropPage = () => {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [loadingText, setLoadingText] = useState(t('common:loading'));
+
+  // Effect to change loading text if it takes too long (cold start)
+  import { useEffect } from 'react';
+  useEffect(() => {
+    let timer;
+    if (loading) {
+      setLoadingText(t('common:loading'));
+      timer = setTimeout(() => {
+        setLoadingText('Waking up AI Model (this may take up to 50 seconds)...');
+      }, 5000);
+    }
+    return () => clearTimeout(timer);
+  }, [loading, t]);
 
   const fields = [
     { name: 'nitrogen', labelKey: 'crop:nitrogen', placeholder: 'e.g. 90' },
@@ -41,6 +55,7 @@ const CropPage = () => {
     setError('');
     setResult(null);
     setLoading(true);
+    setLoadingText(t('common:loading'));
     try {
       const payload = {
         nitrogen: Number(form.nitrogen),
@@ -115,7 +130,7 @@ const CropPage = () => {
             <div className="card flex-center" style={{ minHeight: 160 }}>
               <div style={{ textAlign: 'center' }}>
                 <div className="loader-spinner" style={{ margin: '0 auto 12px' }} />
-                <p style={{ color: 'var(--text-muted)' }}>{t('common:loading')}</p>
+                <p style={{ color: 'var(--text-muted)' }}>{loadingText}</p>
               </div>
             </div>
           )}
