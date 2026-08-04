@@ -1,5 +1,6 @@
 const { GoogleGenAI } = require('@google/genai');
-const axios = require('axios');
+const { GEMINI_MODELS } = require('../config/gemini');
+
 const LANGUAGE_NAMES = {
   en: 'English',
   hi: 'Hindi (हिन्दी)',
@@ -20,20 +21,6 @@ const getGeminiClient = () => {
     console.error('[CHAT LOG] Initialization failed: GEMINI_API_KEY is missing or invalid.');
     return null;
   }
-  console.log('[CHAT LOG] Gemini client initialized successfully.');
-  
-  // Debug: List available models asynchronously
-  axios.get(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`)
-    .then(response => {
-      if (response.data && response.data.models) {
-        const modelNames = response.data.models.map(m => m.name).join(', ');
-        console.log(`[CHAT LOG] Available models for this key: ${modelNames}`);
-      }
-    })
-    .catch(err => {
-      console.error(`[CHAT LOG] Failed to list models: ${err.message}`);
-    });
-
   return new GoogleGenAI({ apiKey });
 };
 
@@ -68,19 +55,8 @@ IMPORTANT INSTRUCTIONS:
 - If the user asks a question that is NOT related to agriculture, farming, crops, weather, schemes, or rural development, politely redirect them to farming topics in ${langName}.
 - Keep your answers concise, well-formatted with markdown bullet points and emojis where appropriate, and easy to read.`;
 
-  const candidateModels = ['gemini-1.5-flash', 'gemini-1.5-flash-latest', 'gemini-pro'];
-  let lastError = null;
-
-  // Format history for Gemini (assuming history is [{ role: 'user', parts: [{ text: '...' }] }, ...])
-  // The frontend passes basic text, we need to map it if needed, or simply stringify it.
-  // Actually, for simplicity and robustness across older/newer SDKs, we will inject history into the prompt if no official chat session is used, or use contents array.
-  
   let contents = [];
   
-  // Inject system prompt into the first message or as a system instruction if supported.
-  // @google/genai supports systemInstruction via config.
-  
-  // Append history
   if (Array.isArray(history) && history.length > 0) {
     for (const msg of history) {
       if (msg.role === 'user' || msg.role === 'model') {
@@ -92,7 +68,6 @@ IMPORTANT INSTRUCTIONS:
     }
   }
   
-  // Append current message
   contents.push({
     role: 'user',
     parts: [{ text: message }]
@@ -100,12 +75,13 @@ IMPORTANT INSTRUCTIONS:
 
   const maxRetries = 1;
   let attempt = 0;
+  let lastError = null;
 
   while (attempt <= maxRetries) {
-    for (const modelName of candidateModels) {
+    for (const modelName of GEMINI_MODELS) {
       const startTime = Date.now();
       try {
-        console.log(`[CHAT LOG] Attempting model: ${modelName} | Attempt: ${attempt + 1}/${maxRetries + 1}`);
+        console.log(`[CHAT LOG] Selected model: ${modelName} | Attempt: ${attempt + 1}/${maxRetries + 1}`);
         
         const response = await ai.models.generateContent({
           model: modelName,
@@ -118,7 +94,9 @@ IMPORTANT INSTRUCTIONS:
         const responseTime = Date.now() - startTime;
         
         if (response.text && response.text.trim()) {
-          console.log(`[CHAT LOG] Success! Model: ${modelName} | Response Time: ${responseTime}ms`);
+          console.log(`[CHAT LOG] Success! Response status: OK`);
+          console.log(`[CHAT LOG] Request duration: ${responseTime}ms`);
+          console.log(`[CHAT LOG] Retry attempts: ${attempt}`);
           return {
             text: response.text.trim(),
             model: modelName,
@@ -127,27 +105,15 @@ IMPORTANT INSTRUCTIONS:
         }
       } catch (err) {
         const responseTime = Date.now() - startTime;
-        console.warn(`[CHAT LOG] Model ${modelName} failed after ${responseTime}ms: ${err.message}`);
-        console.error(`[CHAT LOG] Stack trace: ${err.stack}`);
+        console.warn(`[CHAT LOG] Model ${modelName} failed after ${responseTime}ms. Status: ERROR`);
+        console.warn(`[CHAT LOG] Error reason: ${err.message}`);
         lastError = err;
-        
-        // Check if it's a transient error that should be retried
-        const errStr = err.message.toLowerCase();
-        const statusMatch = err.message.match(/\b(429|500|503)\b/);
-        
-        const isTransient = statusMatch || errStr.includes('timeout') || errStr.includes('network') || errStr.includes('fetch');
-        
-        if (isTransient) {
-          console.log(`[CHAT LOG] Transient error detected. Will retry if attempts remain.`);
-        } else {
-          // If it's a 400 or auth error, don't fallback to next model, throw immediately or let it try next model if it's model-specific
-        }
       }
     }
     
     attempt++;
     if (attempt <= maxRetries) {
-      console.log(`[CHAT LOG] All models failed on attempt ${attempt}. Retrying in 2 seconds...`);
+      console.log(`[CHAT LOG] All configured models failed on attempt ${attempt}. Retrying in 2 seconds...`);
       await delay(2000);
     }
   }
@@ -155,15 +121,13 @@ IMPORTANT INSTRUCTIONS:
   throw lastError || new Error('All Gemini model attempts and retries failed');
 };
 
-/**
- * Main Controller Handler for POST /api/chat
- */
 exports.sendMessage = async (req, res) => {
   const requestStartTime = Date.now();
   const { message, language = 'en', history = [] } = req.body;
 
   console.log(`\n======================================================`);
-  console.log(`[CHAT LOG] Incoming request | Language: ${language} | History length: ${history.length} | Time: ${new Date().toISOString()}`);
+  console.log(`[CHAT LOG] Request started...`);
+  console.log(`[CHAT LOG] Language: ${language} | History length: ${history.length} | Time: ${new Date().toISOString()}`);
   const promptLog = message && typeof message === 'string' ? `${message.substring(0, 100)}${message.length > 100 ? '...' : ''}` : 'undefined or invalid';
   console.log(`[CHAT LOG] Prompt: "${promptLog}"`);
   
@@ -192,15 +156,15 @@ exports.sendMessage = async (req, res) => {
     
   } catch (error) {
     const totalDuration = Date.now() - requestStartTime;
-    console.error(`[CHAT LOG] All AI services completely unavailable after ${totalDuration}ms`);
-    console.error(`[CHAT LOG] Fallback reason: ${error.message}`);
+    console.error(`[CHAT LOG] Request failed entirely after ${totalDuration}ms`);
+    console.error(`[CHAT LOG] Fatal Error: ${error.message}`);
     console.log(`======================================================\n`);
     
     return res.status(503).json({
       success: false,
-      error: 'AgriBot AI service is temporarily unavailable. Please verify your connection or try again in a few moments.',
+      error: 'AgriBot AI services are temporarily unavailable due to upstream API issues. Please try again later.',
       details: error.message,
-      code: 'AI_SERVICE_UNAVAILABLE',
+      code: 'ALL_MODELS_UNAVAILABLE',
       timestamp: new Date().toISOString(),
     });
   }

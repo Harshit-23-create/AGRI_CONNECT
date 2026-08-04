@@ -72,7 +72,7 @@ describe('AgriConnect Backend API', () => {
         .post('/api/chat')
         .send({ message: 'Hello', history: [] });
       expect(res.statusCode).toEqual(503);
-      expect(res.body).toHaveProperty('code', 'AI_SERVICE_UNAVAILABLE');
+      expect(res.body).toHaveProperty('code', 'ALL_MODELS_UNAVAILABLE');
     });
   });
 });

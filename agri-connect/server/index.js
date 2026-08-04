@@ -74,6 +74,25 @@ const PORT = process.env.PORT || 5000;
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`🌿 AgriConnect server running on http://localhost:${PORT}`);
+    
+    // Gemini Startup Logging
+    const packageJson = require('./package.json');
+    const { GEMINI_MODELS } = require('./config/gemini');
+    const geminiVersion = packageJson.dependencies['@google/genai'] || 'unknown';
+    
+    console.log(`\n🤖 === Gemini Configuration ===`);
+    console.log(`- SDK Version: ${geminiVersion}`);
+    console.log(`- Configured Models: [${GEMINI_MODELS.join(', ')}]`);
+    console.log(`- Default Model: ${GEMINI_MODELS[0]}`);
+    
+    const key = process.env.GEMINI_API_KEY;
+    if (key && key.length > 10) {
+      const maskedKey = `${key.substring(0, 8)}...${key.substring(key.length - 4)}`;
+      console.log(`- API Key Loaded: ${maskedKey}`);
+    } else {
+      console.warn(`- API Key: MISSING OR INVALID`);
+    }
+    console.log(`==============================\n`);
   });
 }
 
