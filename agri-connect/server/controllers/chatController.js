@@ -110,7 +110,7 @@ exports.sendMessage = async (req, res) => {
     provider = 'Google Gemini AI';
   } catch (geminiError) {
     console.error(`[CHAT LOG] Gemini API attempt failed: ${geminiError.message}`);
-    
+
     // 2. Secondary Fallback: FastAPI ML Service
     try {
       replyText = await generateWithFastAPI(cleanMessage, language);

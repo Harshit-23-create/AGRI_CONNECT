@@ -18,7 +18,7 @@ router.post('/recommend', async (req, res) => {
     const response = await axios.post(
       process.env.FASTAPI_URL || 'http://127.0.0.1:8000/predict',
       { nitrogen, phosphorus, potassium, temperature, humidity, ph, rainfall },
-      { timeout: 60000 }
+      { timeout: 45000 }
     );
 
     const result = response.data;
