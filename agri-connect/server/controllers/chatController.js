@@ -55,7 +55,7 @@ IMPORTANT INSTRUCTIONS:
 - If the user asks a question that is NOT related to agriculture, farming, crops, weather, schemes, or rural development, politely redirect them to farming topics in ${langName}.
 - Keep your answers concise, well-formatted with markdown bullet points and emojis where appropriate, and easy to read.`;
 
-  const candidateModels = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+  const candidateModels = ['gemini-1.5-flash', 'gemini-1.5-flash-latest', 'gemini-pro'];
   let lastError = null;
 
   // Format history for Gemini (assuming history is [{ role: 'user', parts: [{ text: '...' }] }, ...])
