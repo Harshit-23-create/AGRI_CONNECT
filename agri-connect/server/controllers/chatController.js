@@ -1,5 +1,5 @@
 const { GoogleGenAI } = require('@google/genai');
-
+const axios = require('axios');
 const LANGUAGE_NAMES = {
   en: 'English',
   hi: 'Hindi (हिन्दी)',
