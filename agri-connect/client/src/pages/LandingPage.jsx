@@ -18,7 +18,6 @@ const LandingPage = () => {
       {/* Hero */}
       <section className="landing-hero">
         <div className="hero-content">
-
           <h1 className="hero-title">
             {t('heroTitleLine1')}<br />
             <span className="highlight">{t('heroTitleLine2')}</span>

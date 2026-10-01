@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getCropRecommendation } from '../services/api';
 import toast from 'react-hot-toast';
@@ -26,7 +26,6 @@ const CropPage = () => {
   const [loadingText, setLoadingText] = useState(t('common:loading'));
 
   // Effect to change loading text if it takes too long (cold start)
-  import { useEffect } from 'react';
   useEffect(() => {
     let timer;
     if (loading) {
