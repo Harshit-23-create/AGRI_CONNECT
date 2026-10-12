@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
+import ThemeToggle from './ThemeToggle';
 
 const Sidebar = ({ isOpen, onClose }) => {
   const { user, logout } = useAuth();
@@ -49,6 +50,11 @@ const Sidebar = ({ isOpen, onClose }) => {
             </NavLink>
           ))}
         </nav>
+
+        {/* Sidebar Footer with Theme Toggle & User Info */}
+        <div className="sidebar-footer-actions">
+          <ThemeToggle showLabel={true} className="sidebar-theme-btn" />
+        </div>
 
         {/* User info + Logout at bottom */}
         {user && (

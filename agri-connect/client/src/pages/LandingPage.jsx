@@ -85,7 +85,7 @@ const LandingPage = () => {
         <h2 style={{
           fontSize: '2.2rem',
           marginBottom: '16px',
-          background: 'linear-gradient(135deg, #fff, var(--primary-light))',
+          background: 'var(--heading-gradient)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
         }}>

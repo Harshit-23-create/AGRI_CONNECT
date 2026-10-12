@@ -57,7 +57,7 @@ const Dashboard = () => {
 
       {/* Feature Grid */}
       <div className="page-header">
-        <h2 style={{ fontSize: '1.4rem', background: 'linear-gradient(135deg, var(--text-white), var(--primary-light))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+        <h2 style={{ fontSize: '1.4rem', background: 'var(--heading-gradient)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
           {t('dashboard:quickActions')}
         </h2>
         <p className="text-muted" style={{ fontSize: '0.88rem', marginTop: 4 }}>

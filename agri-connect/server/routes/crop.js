@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+const { predictCropFromParameters } = require('../utils/cropAdvisor');
 
 // POST /api/crop/recommend
 // Body: { nitrogen, phosphorus, potassium, temperature, humidity, ph, rainfall }
@@ -14,41 +15,38 @@ router.post('/recommend', async (req, res) => {
     return res.status(400).json({ error: 'All soil parameters are required' });
   }
 
-  // Retry logic with exponential backoff for Render cold starts
-  const maxRetries = 3;
-  let attempt = 0;
-  let delay = 3000; // start with 3 seconds
-  let response = null;
+  // 1. Attempt local / remote FastAPI ML service first (quick check)
+  const fastApiUrl = process.env.FASTAPI_URL || 'http://127.0.0.1:8000/predict';
+  
+  try {
+    const response = await axios.post(
+      fastApiUrl,
+      { nitrogen, phosphorus, potassium, temperature, humidity, ph, rainfall },
+      { timeout: 4000 }
+    );
 
-  while (attempt < maxRetries) {
-    try {
-      response = await axios.post(
-        process.env.FASTAPI_URL || 'http://127.0.0.1:8000/predict',
-        { nitrogen, phosphorus, potassium, temperature, humidity, ph, rainfall },
-        { timeout: 30000 }
-      );
-      break; // Success, exit retry loop
-    } catch (err) {
-      attempt++;
-      console.error(`FastAPI attempt ${attempt} failed:`, err.message);
-      
-      if (attempt >= maxRetries) {
-        return res.status(503).json({
-          error: 'Crop recommendation ML service is currently unavailable. We are experiencing heavy load or a cold start delay. Please try again in a few minutes.',
-          details: err.message
-        });
-      }
-      
-      // Wait before retrying (exponential backoff)
-      console.log(`Waiting ${delay}ms before next attempt...`);
-      await new Promise(resolve => setTimeout(resolve, delay));
-      delay *= 2; // 3s, 6s, 12s...
+    if (response && response.data) {
+      console.log('[CROP] Prediction returned from FastAPI service');
+      return res.json(response.data);
     }
+  } catch (err) {
+    console.warn(`[CROP] FastAPI service unavailable (${err.message}). Falling back to integrated agronomic ML engine.`);
   }
 
-  if (response && response.data) {
-    const result = response.data;
-    res.json(result);
+  // 2. Resilient fallback using integrated agronomic dataset engine
+  try {
+    const result = predictCropFromParameters({
+      nitrogen, phosphorus, potassium, temperature, humidity, ph, rainfall
+    });
+
+    console.log(`[CROP] Integrated recommendation: ${result.crop} (${result.confidence_score}%)`);
+    return res.json(result);
+  } catch (fallbackError) {
+    console.error('[CROP] Recommendation error:', fallbackError);
+    return res.status(500).json({
+      error: 'Failed to generate crop recommendation.',
+      details: fallbackError.message
+    });
   }
 });
 

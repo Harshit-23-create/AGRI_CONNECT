@@ -115,7 +115,7 @@ const MarketplacePage = () => {
       {/* Seller Contact Modal */}
       {selectedSeller && (
         <div style={{
-          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)',
+          position: 'fixed', inset: 0, background: 'var(--bg-modal-overlay)', backdropFilter: 'blur(5px)',
           display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999, padding: 20
         }}>
           <div className="card animate-in" style={{ width: '100%', maxWidth: 400 }}>

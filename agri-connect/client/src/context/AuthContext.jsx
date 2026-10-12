@@ -12,8 +12,21 @@ export const AuthProvider = ({ children }) => {
       try {
         const { data } = await getMe();
         setUser(data.user);
+        // Clear any stale local demo session if real backend auth succeeds
+        localStorage.removeItem('agriconnect_demo_user');
       } catch {
-        setUser(null);
+        // If backend session not found, check if a local demo session exists
+        const savedDemo = localStorage.getItem('agriconnect_demo_user');
+        if (savedDemo) {
+          try {
+            setUser(JSON.parse(savedDemo));
+          } catch {
+            localStorage.removeItem('agriconnect_demo_user');
+            setUser(null);
+          }
+        } else {
+          setUser(null);
+        }
       } finally {
         setLoading(false);
       }
@@ -22,24 +35,79 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const { data } = await loginUser({ email, password });
-    setUser(data.user);
-    return data.user;
+    try {
+      const { data } = await loginUser({ email, password });
+      setUser(data.user);
+      localStorage.removeItem('agriconnect_demo_user');
+      return data.user;
+    } catch (err) {
+      // Check if this was a known demo account
+      const savedDemo = localStorage.getItem('agriconnect_demo_user');
+      if (savedDemo) {
+        const parsed = JSON.parse(savedDemo);
+        if (parsed.email === email) {
+          setUser(parsed);
+          return parsed;
+        }
+      }
+      throw err;
+    }
+  };
+
+  const loginAsDemo = async (demoProfile) => {
+    // 1. Immediately establish session for instant feedback
+    setUser(demoProfile);
+    localStorage.setItem('agriconnect_demo_user', JSON.stringify(demoProfile));
+
+    // 2. Best-effort background sync with backend DB (if server is up)
+    try {
+      const { data } = await loginUser({
+        email: demoProfile.email,
+        password: demoProfile.password,
+      });
+      if (data?.user) {
+        setUser(data.user);
+      }
+    } catch {
+      // If login failed because user is not registered in MongoDB yet, try registering
+      try {
+        const { data } = await registerUser({
+          username: demoProfile.username,
+          email: demoProfile.email,
+          password: demoProfile.password,
+          serviceProvider: demoProfile.serviceProvider || 'No',
+          language: demoProfile.language || 'en',
+        });
+        if (data?.user) {
+          setUser(data.user);
+        }
+      } catch {
+        // Server might be offline or sleeping; local demo session remains active
+      }
+    }
+
+    return demoProfile;
   };
 
   const register = async (formData) => {
     const { data } = await registerUser(formData);
     setUser(data.user);
+    localStorage.removeItem('agriconnect_demo_user');
     return data.user;
   };
 
   const logout = async () => {
-    await logoutUser();
+    localStorage.removeItem('agriconnect_demo_user');
+    try {
+      await logoutUser();
+    } catch {
+      // Ignore network errors on logout
+    }
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, loginAsDemo, register, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

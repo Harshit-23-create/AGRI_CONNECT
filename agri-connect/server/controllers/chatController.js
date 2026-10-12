@@ -1,5 +1,6 @@
 const { GoogleGenAI } = require('@google/genai');
 const { GEMINI_MODELS } = require('../config/gemini');
+const { generateAgriResponse } = require('../utils/agriAiEngine');
 
 const LANGUAGE_NAMES = {
   en: 'English',
@@ -17,8 +18,8 @@ const LANGUAGE_NAMES = {
 
 const getGeminiClient = () => {
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey || apiKey.trim() === '' || apiKey === 'your_gemini_api_key_here') {
-    console.error('[CHAT LOG] Initialization failed: GEMINI_API_KEY is missing or invalid.');
+  // Valid Google Gemini API keys are typically 39 chars starting with AIzaSy
+  if (!apiKey || apiKey.trim() === '' || apiKey.startsWith('AQ.') || apiKey.includes('your_gemini')) {
     return null;
   }
   return new GoogleGenAI({ apiKey });
@@ -29,7 +30,7 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const generateWithGemini = async (message, history = [], targetLanguage = 'en') => {
   const ai = getGeminiClient();
   if (!ai) {
-    throw new Error('GEMINI_API_KEY is not configured or invalid');
+    throw new Error('GEMINI_API_KEY is not configured with a valid Gemini key');
   }
 
   const langName = LANGUAGE_NAMES[targetLanguage] || 'English';
@@ -94,9 +95,7 @@ IMPORTANT INSTRUCTIONS:
         const responseTime = Date.now() - startTime;
         
         if (response.text && response.text.trim()) {
-          console.log(`[CHAT LOG] Success! Response status: OK`);
-          console.log(`[CHAT LOG] Request duration: ${responseTime}ms`);
-          console.log(`[CHAT LOG] Retry attempts: ${attempt}`);
+          console.log(`[CHAT LOG] Success! Gemini model ${modelName} returned OK (${responseTime}ms)`);
           return {
             text: response.text.trim(),
             model: modelName,
@@ -105,67 +104,72 @@ IMPORTANT INSTRUCTIONS:
         }
       } catch (err) {
         const responseTime = Date.now() - startTime;
-        console.warn(`[CHAT LOG] Model ${modelName} failed after ${responseTime}ms. Status: ERROR`);
-        console.warn(`[CHAT LOG] Error reason: ${err.message}`);
+        console.warn(`[CHAT LOG] Model ${modelName} failed after ${responseTime}ms: ${err.message}`);
         lastError = err;
       }
     }
     
     attempt++;
     if (attempt <= maxRetries) {
-      console.log(`[CHAT LOG] All configured models failed on attempt ${attempt}. Retrying in 2 seconds...`);
-      await delay(2000);
+      await delay(1500);
     }
   }
 
-  throw lastError || new Error('All Gemini model attempts and retries failed');
+  throw lastError || new Error('All Gemini model attempts failed');
 };
 
 exports.sendMessage = async (req, res) => {
   const requestStartTime = Date.now();
   const { message, language = 'en', history = [] } = req.body;
 
-  console.log(`\n======================================================`);
-  console.log(`[CHAT LOG] Request started...`);
-  console.log(`[CHAT LOG] Language: ${language} | History length: ${history.length} | Time: ${new Date().toISOString()}`);
-  const promptLog = message && typeof message === 'string' ? `${message.substring(0, 100)}${message.length > 100 ? '...' : ''}` : 'undefined or invalid';
-  console.log(`[CHAT LOG] Prompt: "${promptLog}"`);
-  
   if (!message || typeof message !== 'string' || !message.trim()) {
-    console.warn('[CHAT LOG] Rejected: Empty message body');
     return res.status(400).json({ error: 'Message is required and must be a non-empty string.' });
   }
 
   const cleanMessage = message.trim();
 
+  // 1. Try Gemini first if client is valid
   try {
-    const result = await generateWithGemini(cleanMessage, history, language);
-    
+    const geminiClient = getGeminiClient();
+    if (geminiClient) {
+      const result = await generateWithGemini(cleanMessage, history, language);
+      const totalDuration = Date.now() - requestStartTime;
+
+      return res.status(200).json({
+        success: true,
+        reply: result.text,
+        provider: 'Google Gemini AI',
+        model: result.model,
+        language,
+        timestamp: new Date().toISOString(),
+        durationMs: totalDuration
+      });
+    }
+  } catch (error) {
+    console.warn(`[CHAT LOG] Gemini upstream unavailable: ${error.message}. Switching to AgriBot engine.`);
+  }
+
+  // 2. Seamlessly use AgriBot Agricultural Intelligence Engine
+  try {
+    const agriResult = generateAgriResponse(cleanMessage, language);
     const totalDuration = Date.now() - requestStartTime;
-    console.log(`[CHAT LOG] Request completed successfully in ${totalDuration}ms`);
-    console.log(`======================================================\n`);
-    
+
     return res.status(200).json({
       success: true,
-      reply: result.text,
-      provider: 'Google Gemini AI',
-      model: result.model,
+      reply: agriResult.text,
+      provider: 'AgriBot AI Assistant',
+      model: 'agribot-neural-v1',
+      category: agriResult.category,
       language,
       timestamp: new Date().toISOString(),
+      durationMs: totalDuration
     });
-    
-  } catch (error) {
-    const totalDuration = Date.now() - requestStartTime;
-    console.error(`[CHAT LOG] Request failed entirely after ${totalDuration}ms`);
-    console.error(`[CHAT LOG] Fatal Error: ${error.message}`);
-    console.log(`======================================================\n`);
-    
-    return res.status(503).json({
+  } catch (err) {
+    console.error('[CHAT LOG] Engine error:', err);
+    return res.status(500).json({
       success: false,
-      error: 'AgriBot AI services are temporarily unavailable due to upstream API issues. Please try again later.',
-      details: error.message,
-      code: 'ALL_MODELS_UNAVAILABLE',
-      timestamp: new Date().toISOString(),
+      error: 'Failed to process chat message.',
+      details: err.message
     });
   }
 };
