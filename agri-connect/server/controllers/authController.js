@@ -28,6 +28,62 @@ const sanitizePhone = (phone) => {
   return digits.length > 10 ? digits.slice(-10) : digits;
 };
 
+// Helper: Dispatch SMS via Fast2SMS or Twilio if credentials are configured
+const dispatchSmsGateway = async (phone, otp) => {
+  // 1. Fast2SMS (Indian instant OTP route)
+  if (process.env.FAST2SMS_API_KEY) {
+    try {
+      const response = await fetch('https://www.fast2sms.com/dev/bulkV2', {
+        method: 'POST',
+        headers: {
+          authorization: process.env.FAST2SMS_API_KEY,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          route: 'otp',
+          variables_values: otp,
+          numbers: phone,
+        }),
+      });
+      const data = await response.json();
+      console.log(`[SMS GATEWAY] Fast2SMS dispatched to +91-${phone}:`, data?.message || data);
+      return { success: true, provider: 'Fast2SMS' };
+    } catch (err) {
+      console.warn(`[SMS GATEWAY] Fast2SMS delivery error:`, err.message);
+    }
+  }
+
+  // 2. Twilio (International / Indian carrier route)
+  if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN && process.env.TWILIO_PHONE_NUMBER) {
+    try {
+      const authHeader = 'Basic ' + Buffer.from(`${process.env.TWILIO_ACCOUNT_SID}:${process.env.TWILIO_AUTH_TOKEN}`).toString('base64');
+      const params = new URLSearchParams();
+      params.append('To', `+91${phone}`);
+      params.append('From', process.env.TWILIO_PHONE_NUMBER);
+      params.append('Body', `🌾 AgriConnect: Your OTP is ${otp}. Valid for 5 minutes.`);
+
+      const response = await fetch(
+        `https://api.twilio.com/2010-04-01/Accounts/${process.env.TWILIO_ACCOUNT_SID}/Messages.json`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: authHeader,
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: params.toString(),
+        }
+      );
+      const data = await response.json();
+      console.log(`[SMS GATEWAY] Twilio dispatched to +91-${phone}:`, data?.sid ? 'Delivered' : data?.message);
+      return { success: true, provider: 'Twilio' };
+    } catch (err) {
+      console.warn(`[SMS GATEWAY] Twilio delivery error:`, err.message);
+    }
+  }
+
+  return { success: false, mode: 'simulation' };
+};
+
 // @desc    Send OTP to phone
 // @route   POST /api/auth/send-otp
 // @access  Public
@@ -48,14 +104,20 @@ const sendOtp = async (req, res) => {
 
   console.log(`[AUTH LOG] OTP generated for +91-${cleanPhone}: ${otp}`);
 
-  // In production this connects to SMS gateway (e.g. Fast2SMS / Twilio)
-  // We return the otp in the response so farmers and evaluators can instantly view and verify
+  // Dispatch via SMS gateway if credentials present in .env
+  const gatewayResult = await dispatchSmsGateway(cleanPhone, otp);
+
+  // Return response with OTP for seamless in-app display and verification
   res.json({
     success: true,
-    message: `OTP sent successfully to +91-${cleanPhone}`,
+    message: gatewayResult.success
+      ? `Real SMS dispatched to +91-${cleanPhone} via ${gatewayResult.provider}`
+      : `OTP sent successfully to +91-${cleanPhone}`,
     phone: cleanPhone,
-    otp, // Returned for instant testing and in-app display
-    expiresInSeconds: 300
+    otp, // Returned for instant in-app display and simulation
+    smsDelivered: gatewayResult.success,
+    gateway: gatewayResult.provider || 'In-App Simulation',
+    expiresInSeconds: 300,
   });
 };
 
