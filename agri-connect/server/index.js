@@ -13,6 +13,7 @@ const chatRoutes = require('./routes/chat');
 const cropRoutes = require('./routes/crop');
 const productRoutes = require('./routes/product');
 const articleRoutes = require('./routes/article');
+const labourRoutes = require('./routes/labour');
 
 const app = express();
 
@@ -58,6 +59,7 @@ app.use('/api/chat', chatRoutes);
 app.use('/api/crop', cropRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/articles', articleRoutes);
+app.use('/api/labour', labourRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

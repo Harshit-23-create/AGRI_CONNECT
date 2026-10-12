@@ -7,19 +7,22 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Username is required'],
       trim: true,
+      default: 'Farmer User'
+    },
+    phone: {
+      type: String,
+      trim: true,
+      default: '',
     },
     email: {
       type: String,
-      required: [true, 'Email is required'],
-      unique: true,
       lowercase: true,
       trim: true,
-      match: [/^\S+@\S+\.\S+$/, 'Invalid email format'],
+      default: '',
     },
     password: {
       type: String,
-      required: [true, 'Password is required'],
-      minlength: [6, 'Password must be at least 6 characters'],
+      default: '',
     },
     serviceProvider: {
       type: String,
@@ -40,9 +43,9 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Hash password before saving
+// Hash password before saving if present
 userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
+  if (!this.password || !this.isModified('password')) return next();
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
   next();
@@ -50,6 +53,7 @@ userSchema.pre('save', async function (next) {
 
 // Compare passwords
 userSchema.methods.matchPassword = async function (enteredPassword) {
+  if (!this.password) return false;
   return await bcrypt.compare(enteredPassword, this.password);
 };
 

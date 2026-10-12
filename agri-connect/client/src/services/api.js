@@ -36,6 +36,8 @@ API.interceptors.response.use(
 );
 
 // Auth
+export const sendOtpApi = (phone) => API.post('/auth/send-otp', { phone });
+export const verifyOtpApi = (phone, otp, role, username) => API.post('/auth/verify-otp', { phone, otp, role, username });
 export const registerUser = (data) => API.post('/auth/register', data);
 export const loginUser = (data) => API.post('/auth/login', data);
 export const logoutUser = () => API.post('/auth/logout');
@@ -98,5 +100,9 @@ export const getArticles = (category, search) => {
   if (search) url += `search=${search}`;
   return API.get(url);
 };
+
+// Labour & Equipment Rentals
+export const bookLabourServiceApi = (bookingData) => API.post('/labour/book', bookingData);
+export const getLabourBookingsApi = () => API.get('/labour/bookings');
 
 export default API;
